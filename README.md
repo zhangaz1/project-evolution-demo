@@ -12,3 +12,10 @@
 
 ## 分支
 
+默认以下几个分支，关系如下：
+
+最新版本：
+dev => master -> test -> release
+
+历史支持版本：
+dev(n) -> test(n) -> release(n)
