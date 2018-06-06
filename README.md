@@ -2,6 +2,10 @@
 
 记录项目演进过程
 
+## Versions:
+
+### * V0.0.1 [features](versions/0.0.1.md)
+
 ## 重构
 
 ## 构建
@@ -12,3 +16,10 @@
 
 ## 分支
 
+默认以下几个分支，关系如下：
+
+最新版本：
+dev => master -> test -> release
+
+历史支持版本：
+master(n) -> dev(n) -> test(n) -> release(n)
