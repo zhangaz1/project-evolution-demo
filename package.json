@@ -1,0 +1,22 @@
+{
+  "name": "project-evolution-demo",
+  "version": "0.0.1",
+  "description": "project evolution demo",
+  "main": "readme.md",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NetBrainDev/project-evolution-demo.git"
+  },
+  "keywords": [
+    "evolution"
+  ],
+  "author": "zhangaz1",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NetBrainDev/project-evolution-demo/issues"
+  },
+  "homepage": "https://github.com/NetBrainDev/project-evolution-demo#readme"
+}
