@@ -5,6 +5,7 @@
 ## Versions:
 
 * [V0.0.1](versions/0.0.1.md)
+* [V0.0.2](versions/0.0.2.md)
 
 ## 重构
 
