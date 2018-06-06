@@ -18,4 +18,4 @@
 dev => master -> test -> release
 
 历史支持版本：
-dev(n) -> test(n) -> release(n)
+master(n) -> dev(n) -> test(n) -> release(n)
