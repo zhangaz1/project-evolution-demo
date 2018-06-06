@@ -1,17 +1,140 @@
-var sn = [42, 41], dz = 43, fx = 1, n, ctx = document.getElementById("can").getContext("2d");
-function draw(t, c) {
-	ctx.fillStyle = c;
-	ctx.fillRect(t % 20 * 20 + 1, ~~(t / 20) * 20 + 1, 18, 18);
-}
-document.onkeydown = function(e) { fx = sn[1] - sn[0] == (n = [-1, -20, 1, 20][(e || event).keyCode - 37] || fx) ? fx : n };
-!function() {
-	sn.unshift(n = sn[0] + fx);
-	if (sn.indexOf(n, 1) > 0 || n < 0 || n > 399 || fx == 1 && n % 20 == 0 || fx == -1 && n % 20 == 19) return alert("GAME OVER");
-	draw(n, "Lime");
-	if (n == dz) {
-		while (sn.indexOf(dz = ~~(Math.random() * 400)) >= 0);
-		draw(dz, "Yellow");
-	} else
-		draw(sn.pop(), "Black");
-	setTimeout(arguments.callee, 130);
-}();
+;
+(function() {
+
+	const WIDTH = 20;
+	const MAX_WIDTH_INDEX = WIDTH - 1;
+	const HEIGHT = 20;
+	const POSITION_WIDTH = 20;
+	const POSITION_HEIGHT = 20;
+	const POSITIONS_LENGTH = WIDTH * HEIGHT;
+	const MAX_POSITIONS_INDEX = POSITIONS_LENGTH - 1;
+
+	const KEYCODE_STEP_MAP = {
+		'37': -1, // left
+		'38': -WIDTH, // top
+		'39': 1, // right
+		'40': WIDTH // down
+	};
+
+	let snake = [42, 41],
+		food = 43,
+		moveStep = 1,
+		snakeHead,
+		ctx = document.getElementById("can").getContext("2d");
+
+	document.onkeydown = function(e) {
+		let keyCode = (e || event).keyCode;
+		updateMoveStep(keyCode);
+	};
+
+	move();
+
+	return void (0);
+
+	function updateMoveStep(keyCode) {
+		let newStep = KEYCODE_STEP_MAP[keyCode];
+		moveStep = newStep || moveStep;
+	}
+
+	function draw(positionIndex, c) {
+		ctx.fillStyle = c;
+		let x = getPositionX(positionIndex);
+		let y = getPositionY(positionIndex);
+		ctx.fillRect(x, y, 18, 18);
+	}
+
+	function getPositionX(positionIndex) {
+		let column = positionIndex % WIDTH;
+		return column * POSITION_WIDTH + 1;
+	}
+
+	function getPositionY(positionIndex) {
+		let row = ~~(positionIndex / WIDTH);
+		return row * POSITION_HEIGHT + 1;
+	}
+
+	function move() {
+		unshiftNewHead();
+		if (isGameOver()) {
+			return alert("GAME OVER");
+		}
+		drawHead();
+		if (isEatFood()) {
+			randomNewFood();
+			drawFood();
+		} else {
+			let tailGround = snake.pop();
+			drawTailGround(tailGround);
+		}
+		setNextMove();
+	}
+
+	function drawHead() {
+		draw(snakeHead, "Lime");
+	}
+
+	function drawFood() {
+		draw(food, "Yellow");
+	}
+
+	function drawTailGround(tailGround) {
+		draw(tailGround, "Black");
+	}
+
+	function setNextMove() {
+		setTimeout(move, 130);
+	}
+
+	function isEatFood() {
+		return snakeHead === food;
+	}
+
+	function unshiftNewHead() {
+		snakeHead = snake[0] + moveStep;
+		snake.unshift(snakeHead);
+	}
+
+	function randomNewFood() {
+		do {
+			food = randomPosition();
+		} while (isFoodOnSelf());
+	}
+
+	function isFoodOnSelf() {
+		return snake.indexOf(food) >= 0;
+	}
+
+	function randomPosition() {
+		return ~~(Math.random() * POSITIONS_LENGTH);
+	}
+
+	function isGameOver() {
+		return isPopSelf() ||
+			isPopTop() ||
+			isPopBottom() ||
+			isPopRight() ||
+			isPopLeft();
+	}
+
+	function isPopSelf() {
+		return snake.indexOf(snakeHead, 1) > 0;
+	}
+
+	function isPopTop() {
+		return snakeHead < 0;
+	}
+
+	function isPopBottom() {
+		return snakeHead > MAX_POSITIONS_INDEX;
+	}
+
+	function isPopRight() {
+		return moveStep === 1 &&
+			snakeHead % WIDTH === 0;
+	}
+
+	function isPopLeft() {
+		return moveStep === -1 &&
+			snakeHead % WIDTH === MAX_WIDTH_INDEX;
+	}
+})();
