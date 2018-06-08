@@ -1,8 +1,9 @@
 const Koa = require('koa');
+
+const static = require('./static.js');
+
 const app = new Koa();
 
-app.use(async ctx => {
-  ctx.body = 'Hello World';
-});
+app.use(static);
 
 app.listen(3000);
