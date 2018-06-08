@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/NetBrainDev/project-evolution-demo/issues"
   },
-  "homepage": "https://github.com/NetBrainDev/project-evolution-demo#readme"
+  "homepage": "https://github.com/NetBrainDev/project-evolution-demo#readme",
+  "dependencies": {
+    "koa": "^2.5.1"
+  }
 }
