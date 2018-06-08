@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/NetBrainDev/project-evolution-demo#readme",
   "dependencies": {
-    "koa": "^2.5.1"
+    "koa": "^2.5.1",
+    "koa-static": "^4.0.3"
   }
 }
