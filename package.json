@@ -1,6 +1,6 @@
 {
   "name": "project-evolution-demo",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "project evolution demo",
   "main": "./src/server/index.js",
   "scripts": {
@@ -21,6 +21,7 @@
   "homepage": "https://github.com/NetBrainDev/project-evolution-demo#readme",
   "dependencies": {
     "koa": "^2.5.1",
+    "koa-router": "^7.4.0",
     "koa-static": "^4.0.3"
   }
 }
