@@ -2,6 +2,10 @@ const path = require('path');
 
 const serve = require('koa-static')
 
-const clientFolder = path.join(path.dirname(__dirname), 'client');
-
+let clientFolder = getClientFolder();
 module.exports = serve(clientFolder);
+
+function getClientFolder() {
+	let clientFolder = path.join(__dirname, './../client');
+	return path.normalize(clientFolder);
+}
