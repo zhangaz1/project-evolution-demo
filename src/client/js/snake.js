@@ -6,7 +6,7 @@
     return void (0);
 
     function createCanvas(gameGround) {
-        const canvas = $('<canvas id="can" width="400" height="400" style="background: black; display: none;"></canvas>').get(0);
+        const canvas = $('<canvas id="can" width="400" height="400" style="background: black; display: none1;"></canvas>').get(0);
 
         $(gameGround).append(canvas);
 
