@@ -4,13 +4,34 @@
 
 <header>
     <link rel="stylesheet" href="./css/main.css" />
+
 </header>
 
 <body>
 
-    <canvas id="can" class="game-ground" width="400" height="400"></canvas>
+    <div class="games-list">
+        games:
+        <button id="snake">Snake</button>
+    </div>
 
-    <script src="./js/snake.js"></script>
+    <div class="game-container">
+
+        <div id="game-ground">
+        </div>
+
+        <div id="game-scripts">
+        </div>
+
+    </div>
+
+    <div class="scripts">
+        <div class="libs">
+            <script src="./jquery/dist/jquery.js"></script>
+        </div>
+        <div class="client">
+            <script src="./js/boot.js"></script>
+        </div>
+    </div>
 
 </body>
 
