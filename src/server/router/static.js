@@ -6,6 +6,6 @@ let clientFolder = getClientFolder();
 module.exports = serve(clientFolder);
 
 function getClientFolder() {
-	let clientFolder = path.join(__dirname, './../client');
+	let clientFolder = path.join(__dirname, './../../client');
 	return path.normalize(clientFolder);
 }

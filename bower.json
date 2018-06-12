@@ -1,0 +1,23 @@
+{
+  "name": "project-evolution-demo",
+  "description": "project evolution demo",
+  "main": "./src/server/index.js",
+  "authors": [
+    "zhangaz1"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "evolution"
+  ],
+  "homepage": "https://github.com/NetBrainDev/project-evolution-demo",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.3.1"
+  }
+}
