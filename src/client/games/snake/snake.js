@@ -1,154 +1,154 @@
-;
-(function() {
-    const canvas = createCanvas('#game-ground');
+import consts from './../../js/common/consts.js';
+
+boot(consts.gameGround);
+
+// return void (0);
+
+function boot(gameGround) {
+    const canvas = createCanvas();
+    gameGround.append(canvas);
     snake(canvas);
+}
+
+function createCanvas() {
+    return $('<canvas id="can" width="400" height="400" style="background: black; display: none1;"></canvas>').get(0);
+}
+
+function snake(canvas) {
+    const WIDTH = 20;
+    const MAX_WIDTH_INDEX = WIDTH - 1;
+    const HEIGHT = 20;
+    const POSITION_WIDTH = 20;
+    const POSITION_HEIGHT = 20;
+    const POSITIONS_LENGTH = WIDTH * HEIGHT;
+    const MAX_POSITIONS_INDEX = POSITIONS_LENGTH - 1;
+
+    const KEYCODE_STEP_MAP = {
+        '37': -1, // left
+        '38': -WIDTH, // top
+        '39': 1, // right
+        '40': WIDTH // down
+    };
+
+    let snake = [42, 41],
+        food = 43,
+        moveStep = 1,
+        snakeHead,
+        ctx = canvas.getContext("2d");
+
+    document.onkeydown = function(e) {
+        let keyCode = (e || event).keyCode;
+        updateMoveStep(keyCode);
+    };
+
+    move();
 
     return void (0);
 
-    function createCanvas(gameGround) {
-        const canvas = $('<canvas id="can" width="400" height="400" style="background: black; display: none1;"></canvas>').get(0);
-
-        $(gameGround).append(canvas);
-
-        return canvas;
+    function updateMoveStep(keyCode) {
+        let newStep = KEYCODE_STEP_MAP[keyCode];
+        moveStep = newStep || moveStep;
     }
 
-    function snake(canvas) {
-        const WIDTH = 20;
-        const MAX_WIDTH_INDEX = WIDTH - 1;
-        const HEIGHT = 20;
-        const POSITION_WIDTH = 20;
-        const POSITION_HEIGHT = 20;
-        const POSITIONS_LENGTH = WIDTH * HEIGHT;
-        const MAX_POSITIONS_INDEX = POSITIONS_LENGTH - 1;
-
-        const KEYCODE_STEP_MAP = {
-            '37': -1, // left
-            '38': -WIDTH, // top
-            '39': 1, // right
-            '40': WIDTH // down
-        };
-
-        let snake = [42, 41],
-            food = 43,
-            moveStep = 1,
-            snakeHead,
-            ctx = canvas.getContext("2d");
-
-        document.onkeydown = function(e) {
-            let keyCode = (e || event).keyCode;
-            updateMoveStep(keyCode);
-        };
-
-        move();
-
-        return void (0);
-
-        function updateMoveStep(keyCode) {
-            let newStep = KEYCODE_STEP_MAP[keyCode];
-            moveStep = newStep || moveStep;
-        }
-
-        function draw(positionIndex, c) {
-            ctx.fillStyle = c;
-            let x = getPositionX(positionIndex);
-            let y = getPositionY(positionIndex);
-            ctx.fillRect(x, y, 18, 18);
-        }
-
-        function getPositionX(positionIndex) {
-            let column = positionIndex % WIDTH;
-            return column * POSITION_WIDTH + 1;
-        }
-
-        function getPositionY(positionIndex) {
-            let row = ~~(positionIndex / WIDTH);
-            return row * POSITION_HEIGHT + 1;
-        }
-
-        function move() {
-            unshiftNewHead();
-            if (isGameOver()) {
-                return console.log("GAME OVER");
-            }
-            drawHead();
-            if (isEatFood()) {
-                randomNewFood();
-                drawFood();
-            } else {
-                let tailGround = snake.pop();
-                drawTailGround(tailGround);
-            }
-            setNextMove();
-        }
-
-        function drawHead() {
-            draw(snakeHead, "Lime");
-        }
-
-        function drawFood() {
-            draw(food, "Yellow");
-        }
-
-        function drawTailGround(tailGround) {
-            draw(tailGround, "Black");
-        }
-
-        function setNextMove() {
-            setTimeout(move, 130);
-        }
-
-        function isEatFood() {
-            return snakeHead === food;
-        }
-
-        function unshiftNewHead() {
-            snakeHead = snake[0] + moveStep;
-            snake.unshift(snakeHead);
-        }
-
-        function randomNewFood() {
-            do {
-                food = randomPosition();
-            } while (isFoodOnSelf());
-        }
-
-        function isFoodOnSelf() {
-            return snake.indexOf(food) >= 0;
-        }
-
-        function randomPosition() {
-            return ~~(Math.random() * POSITIONS_LENGTH);
-        }
-
-        function isGameOver() {
-            return isPopSelf() ||
-                isPopTop() ||
-                isPopBottom() ||
-                isPopRight() ||
-                isPopLeft();
-        }
-
-        function isPopSelf() {
-            return snake.indexOf(snakeHead, 1) > 0;
-        }
-
-        function isPopTop() {
-            return snakeHead < 0;
-        }
-
-        function isPopBottom() {
-            return snakeHead > MAX_POSITIONS_INDEX;
-        }
-
-        function isPopRight() {
-            return moveStep === 1 &&
-                snakeHead % WIDTH === 0;
-        }
-
-        function isPopLeft() {
-            return moveStep === -1 &&
-                snakeHead % WIDTH === MAX_WIDTH_INDEX;
-        }
+    function draw(positionIndex, c) {
+        ctx.fillStyle = c;
+        let x = getPositionX(positionIndex);
+        let y = getPositionY(positionIndex);
+        ctx.fillRect(x, y, 18, 18);
     }
-})();
+
+    function getPositionX(positionIndex) {
+        let column = positionIndex % WIDTH;
+        return column * POSITION_WIDTH + 1;
+    }
+
+    function getPositionY(positionIndex) {
+        let row = ~~(positionIndex / WIDTH);
+        return row * POSITION_HEIGHT + 1;
+    }
+
+    function move() {
+        unshiftNewHead();
+        if (isGameOver()) {
+            return console.log("GAME OVER");
+        }
+        drawHead();
+        if (isEatFood()) {
+            randomNewFood();
+            drawFood();
+        } else {
+            let tailGround = snake.pop();
+            drawTailGround(tailGround);
+        }
+        setNextMove();
+    }
+
+    function drawHead() {
+        draw(snakeHead, "Lime");
+    }
+
+    function drawFood() {
+        draw(food, "Yellow");
+    }
+
+    function drawTailGround(tailGround) {
+        draw(tailGround, "Black");
+    }
+
+    function setNextMove() {
+        setTimeout(move, 130);
+    }
+
+    function isEatFood() {
+        return snakeHead === food;
+    }
+
+    function unshiftNewHead() {
+        snakeHead = snake[0] + moveStep;
+        snake.unshift(snakeHead);
+    }
+
+    function randomNewFood() {
+        do {
+            food = randomPosition();
+        } while (isFoodOnSelf());
+    }
+
+    function isFoodOnSelf() {
+        return snake.indexOf(food) >= 0;
+    }
+
+    function randomPosition() {
+        return ~~(Math.random() * POSITIONS_LENGTH);
+    }
+
+    function isGameOver() {
+        return isPopSelf() ||
+            isPopTop() ||
+            isPopBottom() ||
+            isPopRight() ||
+            isPopLeft();
+    }
+
+    function isPopSelf() {
+        return snake.indexOf(snakeHead, 1) > 0;
+    }
+
+    function isPopTop() {
+        return snakeHead < 0;
+    }
+
+    function isPopBottom() {
+        return snakeHead > MAX_POSITIONS_INDEX;
+    }
+
+    function isPopRight() {
+        return moveStep === 1 &&
+            snakeHead % WIDTH === 0;
+    }
+
+    function isPopLeft() {
+        return moveStep === -1 &&
+            snakeHead % WIDTH === MAX_WIDTH_INDEX;
+    }
+}
