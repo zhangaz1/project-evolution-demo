@@ -2,9 +2,13 @@ import consts from './common/consts.js';
 
 const gameScripts = consts.gameScripts;
 
-$('#snake').click(loadGameHander);
+boot();
 
 // return void (0);
+
+function boot() {
+	$('#snake').click(loadGameHander);
+}
 
 function loadGameHander() {
 	clearGame();
