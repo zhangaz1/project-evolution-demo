@@ -5,4 +5,4 @@ const consts = {
 
 export {
 	consts as default
-}
+};

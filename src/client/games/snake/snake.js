@@ -1,19 +1,3 @@
-import consts from './../../js/common/consts.js';
-
-boot(consts.gameGround);
-
-// return void (0);
-
-function boot(gameGround) {
-    const canvas = createCanvas();
-    gameGround.append(canvas);
-    snake(canvas);
-}
-
-function createCanvas() {
-    return $('<canvas id="can" width="400" height="400" style="background: black; display: none1;"></canvas>').get(0);
-}
-
 function snake(canvas) {
     const WIDTH = 20;
     const MAX_WIDTH_INDEX = WIDTH - 1;
@@ -152,3 +136,7 @@ function snake(canvas) {
             snakeHead % WIDTH === MAX_WIDTH_INDEX;
     }
 }
+
+export {
+    snake as default
+};

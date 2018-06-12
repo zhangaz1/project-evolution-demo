@@ -16,7 +16,7 @@ function loadGameHander() {
 }
 
 function loadGame(game) {
-	const gameScript = $(`<script type="module" src="./games/${game}/${game}.js"></script>`);
+	const gameScript = $(`<script type="module" src="./games/${game}/boot.js"></script>`);
 
 	gameScripts.append(gameScript);
 }
