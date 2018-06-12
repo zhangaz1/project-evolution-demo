@@ -9,7 +9,7 @@
 	}
 
 	function loadGame(game) {
-		const gameScript = $(`<script src="./js/${game}.js"></script>`);
+		const gameScript = $(`<script src="./games/${game}/${game}.js"></script>`);
 		$('#game-scripts').append(gameScript);
 	}
 
