@@ -56,7 +56,7 @@
 	function move() {
 		unshiftNewHead();
 		if (isGameOver()) {
-			return alert("GAME OVER");
+			return console.log("GAME OVER");
 		}
 		drawHead();
 		if (isEatFood()) {
