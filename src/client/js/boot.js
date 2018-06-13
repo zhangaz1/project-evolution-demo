@@ -1,20 +1,27 @@
-; $(function() {
+import consts from './common/consts.js';
+
+const gameScripts = consts.gameScripts;
+
+boot();
+
+// return void (0);
+
+function boot() {
 	$('#snake').click(loadGameHander);
+}
 
-	return void (0);
+function loadGameHander() {
+	clearGame();
+	loadGame(this.id);
+}
 
-	function loadGameHander() {
-		clearGame();
-		loadGame(this.id);
-	}
+function loadGame(game) {
+	const gameScript = $(`<script type="module" src="./games/${game}/boot.js"></script>`);
 
-	function loadGame(game) {
-		const gameScript = $(`<script src="./js/${game}.js"></script>`);
-		$('#game-scripts').append(gameScript);
-	}
+	gameScripts.append(gameScript);
+}
 
-	function clearGame() {
-		$('#game-ground').empty();
-		$('#game-scripts').empty();
-	}
-});
+function clearGame() {
+	consts.gameGround.empty();
+	gameScripts.empty();
+}
