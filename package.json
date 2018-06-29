@@ -4,6 +4,7 @@
   "description": "project evolution demo",
   "main": "./src/server/index.js",
   "scripts": {
+    "start": "runNodeWeb",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
