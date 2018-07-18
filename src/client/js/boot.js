@@ -12,22 +12,19 @@ function boot() {
 
 function loadGameHander() {
 	clearGame();
-	// loadGame(this.id);
-	loadGameModule(this.id);
+	loadGame(this.id);
 }
 
-function loadGameModule(game) {
+function loadGame(game) {
 	var game = `./../games/${game}/boot.js`;
+	// 暂不支持await
+	// const module = await import(game)
+	// module.default();
+
 	import(game)
 		.then(function(module) {
 			module.default();
 		});
-}
-
-function loadGame(game) {
-	const gameScript = $(`<script type="module" src="./games/${game}/boot.js"></script>`);
-
-	gameScripts.append(gameScript);
 }
 
 function clearGame() {
