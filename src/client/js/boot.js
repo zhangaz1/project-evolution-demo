@@ -12,7 +12,16 @@ function boot() {
 
 function loadGameHander() {
 	clearGame();
-	loadGame(this.id);
+	// loadGame(this.id);
+	loadGameModule(this.id);
+}
+
+function loadGameModule(game) {
+	var game = `./../games/${game}/boot.js`;
+	import(game)
+		.then(function(module) {
+			module.default();
+		});
 }
 
 function loadGame(game) {
