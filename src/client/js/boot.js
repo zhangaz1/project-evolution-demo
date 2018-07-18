@@ -16,12 +16,12 @@ function loadGameHander() {
 }
 
 function loadGame(game) {
-	var game = `./../games/${game}/boot.js`;
+	const gameModule = `./../games/${game}/boot.js`;
 	// 暂不支持await
 	// const module = await import(game)
 	// module.default();
 
-	import(game)
+	import(gameModule)
 		.then(function(module) {
 			module.default();
 		});
