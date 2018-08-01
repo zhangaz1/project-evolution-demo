@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+		"module": "esnext",
+		"target": "esnext",
+		"sourceMap": true,
+		"outDir": "./../../dist/client"
+	},
+	"include": [
+		"index.ts"
+	],
+	"exclude": []
+}

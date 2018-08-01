@@ -6,8 +6,12 @@
   "scripts": {
     "start": "nodemon -harmony",
     "winStart": "runNodeWeb",
+    "clean": "IF EXIST dist (DEL /S/Q dist\\* && RD /S/Q dist)",
+    "prebuild": "npm run clean",
     "build": "npm run build-ts",
-    "build-ts": "tsc",
+    "build-ts": "npm run build-ts-client & npm run build-ts-server",
+    "build-ts-client": "cd src/client && tsc",
+    "build-ts-server": "cd src/server && tsc",
     "watch": "",
     "watch-ts": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
