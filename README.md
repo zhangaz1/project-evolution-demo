@@ -4,6 +4,7 @@
 
 ## Versions:
 
+* [V0.1.2: 使用es动态加载module](versions/0.1.2.md)
 * [V0.1.1: 使用es module](versions/0.1.1.md)
 * [V0.1.0: 动态加载snake](versions/0.1.0.md)
 ---
