@@ -6,9 +6,11 @@ const tsProject = plugins.typescript.createProject(tsconfig);
 
 gulp.task('build-ts-server', () => {
 	const interFile = path.join(srcServer, '**/*.ts');
-	var tsResult = gulp.src(interFile)
-		.pipe(tsProject());
+	const sourcemaps = plugins.sourcemaps;
 
-	return tsResult.js
+	return gulp.src(interFile)
+		.pipe(sourcemaps.init())
+		.pipe(tsProject())
+		.pipe(sourcemaps.write('.'))
 		.pipe(gulp.dest(config.paths.distServer));
 });
