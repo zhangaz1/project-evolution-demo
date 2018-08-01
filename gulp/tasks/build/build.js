@@ -1,3 +1,3 @@
 gulp.task('build',
-	plugins.sequence('clean', ['static-client', 'build-ts'])
+	plugins.sequence('clean', 'static-client', 'build-ts')
 );

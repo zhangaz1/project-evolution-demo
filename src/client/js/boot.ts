@@ -1,0 +1,1 @@
+import consts from './common/consts';
