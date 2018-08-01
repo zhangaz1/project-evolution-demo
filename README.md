@@ -13,6 +13,24 @@
 * [V0.0.2: 拆分Js和Css](versions/0.0.2.md)
 * [V0.0.1: 极简单页可用版本](versions/0.0.1.md)
 
+## 跑起来
+
+安装依赖：
+
+* nodemon：
+
+		npm install -g nodemon
+
+
+Start：
+
+	npm start
+
+然后在浏览器中访问：
+
+	http://localhost:3000/
+
+
 ## 重构
 
 ## 构建
