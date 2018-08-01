@@ -1,9 +1,15 @@
 {
   "name": "project-evolution-demo",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "project evolution demo",
   "main": "./src/server/index.js",
   "scripts": {
+    "start": "nodemon -harmony",
+    "winStart": "runNodeWeb",
+    "build": "npm run build-ts",
+    "build-ts": "tsc",
+    "watch": "",
+    "watch-ts": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
