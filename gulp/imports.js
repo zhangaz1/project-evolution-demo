@@ -7,6 +7,6 @@ global.plugins = require('gulp-load-plugins')({
 	camelize: true,
 	lazy: true,
 	rename: {
-		'gulp-sequence': 'gulpSequence'
+		// 'gulp-fileSize': 'size'
 	}
 });
