@@ -1,1 +1,3 @@
-gulp.task('default', []);
+gulp.task('default',
+	plugins.sequence('build', 'watch')
+);

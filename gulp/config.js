@@ -1,14 +1,14 @@
-const path = require('path');
-const join = path.join;
+const join = require('path').join;
+
+const tsconfig = 'tsconfig.json';
+const paths = getPaths();
 
 global.config = {
-	paths: getPaths(),
+	paths: paths,
+	files: getFiles(paths),
 	configs: {
-		tsconfig: 'tsconfig.json'
-	},
-	enterFile: {
-		server: 'index.ts',
-		client: 'index.ts'
+		serverTsconfig: join(paths.srcServer, tsconfig),
+		clientTsconfig: join(paths.srcClient, tsconfig)
 	}
 };
 
@@ -27,4 +27,19 @@ function getPaths() {
 	paths.distClient = join(paths.dist, 'client');
 
 	return paths;
+}
+
+function getFiles(paths) {
+	return {
+		serverTs: [
+			join(paths.srcServer, '**/*.ts')
+		],
+		clientTs: [
+			join(paths.srcClient, '**/*.ts')
+		],
+		clientStatics: [
+			join(paths.srcClient, '**/*.css'),
+			join(paths.srcClient, '**/*.html')
+		]
+	};
 }

@@ -1,14 +1,8 @@
-const path = require('path');
-
-const srcClient = config.paths.srcClient;
-const tsconfig = path.join(srcClient, config.configs.tsconfig);
-const tsProject = plugins.typescript.createProject(tsconfig);
-
 gulp.task('build-ts-client', () => {
-	const interFile = path.join(srcClient, '**/*.ts');
+	const tsProject = plugins.typescript.createProject(config.configs.clientTsconfig);
 	const sourcemaps = plugins.sourcemaps;
 
-	return gulp.src(interFile)
+	return gulp.src(config.files.clientTs)
 		.pipe(sourcemaps.init())
 		.pipe(tsProject())
 		.pipe(sourcemaps.write('.'))
