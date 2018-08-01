@@ -1,7 +1,5 @@
 import consts from './common/consts.js';
 
-const gameScripts = consts.gameScripts;
-
 boot();
 
 // return void (0);
@@ -22,12 +20,12 @@ function loadGame(game) {
 	// module.default();
 
 	import(gameModule)
-		.then(function(module) {
+		.then(function (module) {
 			module.default();
 		});
 }
 
 function clearGame() {
 	consts.gameGround.empty();
-	gameScripts.empty();
+	consts.gameScripts.empty();
 }
