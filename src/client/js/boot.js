@@ -16,9 +16,15 @@ function loadGameHander() {
 }
 
 function loadGame(game) {
-	const gameScript = $(`<script type="module" src="./games/${game}/boot.js"></script>`);
+	const gameModule = `./../games/${game}/boot.js`;
+	// 暂不支持await
+	// const module = await import(game)
+	// module.default();
 
-	gameScripts.append(gameScript);
+	import(gameModule)
+		.then(function(module) {
+			module.default();
+		});
 }
 
 function clearGame() {
