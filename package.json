@@ -2,16 +2,16 @@
   "name": "project-evolution-demo",
   "version": "0.1.2",
   "description": "project evolution demo",
-  "main": "./src/server/index.js",
+  "main": "./dist/server/index.js",
   "scripts": {
     "start": "nodemon -harmony",
     "winStart": "runNodeWeb",
-    "clean": "IF EXIST dist (DEL /S/Q dist\\* && RD /S/Q dist)",
+    "clean": "IF EXIST dist (DEL /S/Q dist\\*)",
     "prebuild": "npm run clean",
     "build": "npm run build-ts",
     "build-ts": "npm run build-ts-client & npm run build-ts-server",
-    "build-ts-client": "cd src/client && tsc",
-    "build-ts-server": "cd src/server && tsc",
+    "build-ts-client": "tsc -p src/client",
+    "build-ts-server": "tsc -p src/server",
     "watch": "",
     "watch-ts": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -33,5 +33,8 @@
     "koa": "^2.5.1",
     "koa-router": "^7.4.0",
     "koa-static": "^4.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^10.5.5"
   }
 }

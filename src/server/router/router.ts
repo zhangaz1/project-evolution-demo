@@ -1,4 +1,4 @@
-const Router = require('koa-router');
+import * as Router from 'koa-router';
 
 const router = new Router();
 
@@ -6,4 +6,4 @@ const router = new Router();
 // 	ctx.redirect('/index.html');
 // });
 
-module.exports = router;
+export default router;
