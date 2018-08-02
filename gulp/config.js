@@ -3,16 +3,20 @@ const join = require('path').join;
 const tsconfig = 'tsconfig.json';
 const paths = getPaths();
 
-global.config = {
-	paths: paths,
-	files: getFiles(paths),
-	configs: {
-		serverTsconfig: join(paths.srcServer, tsconfig),
-		clientTsconfig: join(paths.srcClient, tsconfig)
-	}
-};
+global.config = buildConfig();
 
-return void (0);
+// return void (0);
+
+function buildConfig() {
+	return {
+		paths: paths,
+		files: getFiles(paths),
+		configs: {
+			serverTsconfig: join(paths.srcServer, tsconfig),
+			clientTsconfig: join(paths.srcClient, tsconfig)
+		}
+	};
+}
 
 function getPaths() {
 	const paths = {
