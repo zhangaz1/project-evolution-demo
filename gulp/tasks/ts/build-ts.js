@@ -1,4 +1,7 @@
 gulp.task(
-	'build-ts',
-	plugins.sequence(['build-ts-server', 'build-ts-client'])
+	getTaskName(path.basename(__filename)),
+	plugins.sequence([
+		'build-ts-server',
+		'build-ts-client'
+	])
 );

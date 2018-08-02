@@ -1,10 +1,9 @@
-gulp.task('build-ts-server', () => {
-	const tsProject = plugins.typescript.createProject(config.configs.serverTsconfig);
-	const sourcemaps = plugins.sourcemaps;
-
-	return gulp.src(config.files.serverTs)
-		.pipe(sourcemaps.init())
-		.pipe(tsProject())
-		.pipe(sourcemaps.write('.'))
-		.pipe(gulp.dest(config.paths.distServer));
-});
+gulp.task(
+	getTaskName(path.basename(__filename)),
+	() => {
+		return buildTsServer(
+			config.files.serverTs,
+			config.paths.distServer
+		);
+	}
+);

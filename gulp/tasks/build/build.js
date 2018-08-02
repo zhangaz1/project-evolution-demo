@@ -1,3 +1,8 @@
-gulp.task('build',
-	plugins.sequence('clean', 'static-client', 'build-ts')
+gulp.task(
+	getTaskName(path.basename(__filename)),
+	plugins.sequence(
+		'clean',
+		'copy-static-client',
+		'build-ts'
+	)
 );
