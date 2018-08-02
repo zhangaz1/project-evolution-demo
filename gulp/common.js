@@ -1,6 +1,4 @@
 const ts = plugins.typescript;
-const clientTsProject = ts.createProject(config.configs.clientTsconfig);
-const serverTsProject = ts.createProject(config.configs.serverTsconfig);
 
 global.getTaskName = getTaskName;
 global.buildTsClient = buildTsClient;
@@ -11,10 +9,12 @@ global.getTargetDir = getTargetDir;
 // return void (0);
 
 function buildTsClient(pathPatterns, output) {
+	const clientTsProject = ts.createProject(config.configs.clientTsconfig);
 	return buildTs(pathPatterns, output, clientTsProject);
 }
 
 function buildTsServer(pathPatterns, output) {
+	const serverTsProject = ts.createProject(config.configs.serverTsconfig);
 	return buildTs(pathPatterns, output, serverTsProject);
 }
 
