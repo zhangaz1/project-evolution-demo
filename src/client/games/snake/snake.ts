@@ -1,5 +1,5 @@
 function snake(canvas) {
-	const WIDTH = 20;
+	const WIDTH: number = 20;
 	const MAX_WIDTH_INDEX = WIDTH - 1;
 	const HEIGHT = 20;
 	const POSITION_WIDTH = 20;
@@ -14,11 +14,12 @@ function snake(canvas) {
 		'40': WIDTH // down
 	};
 
-	let snake = [42, 41],
-		food = 43,
-		moveStep = 1,
-		snakeHead,
-		ctx = canvas.getContext("2d");
+	const snake: Array<number> = [42, 41];
+	const ctx = canvas.getContext("2d");
+
+	let food: number = 43,
+		moveStep: number = 1,
+		snakeHead: number;
 
 	document.onkeydown = function (e: KeyboardEvent) {
 		let keyCode = (e || <KeyboardEvent>event).keyCode;
@@ -31,6 +32,13 @@ function snake(canvas) {
 
 	function updateMoveStep(keyCode) {
 		let newStep = KEYCODE_STEP_MAP[keyCode];
+
+		const moveBack = moveStep &&
+			(moveStep === -newStep);
+		if (moveBack) {
+			return;
+		}
+
 		moveStep = newStep || moveStep;
 	}
 
