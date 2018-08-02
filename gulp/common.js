@@ -1,5 +1,3 @@
-const sourcemaps = plugins.sourcemaps;
-
 const ts = plugins.typescript;
 const clientTsProject = ts.createProject(config.configs.clientTsconfig);
 const serverTsProject = ts.createProject(config.configs.serverTsconfig);
@@ -21,16 +19,28 @@ function buildTsServer(pathPatterns, output) {
 }
 
 function buildTs(pathPatterns, output, tsProject) {
+	const sourcemaps = plugins.sourcemaps;
+
 	return gulp.src(pathPatterns)
+		.pipe(debug('read ts'))
 		.pipe(sourcemaps.init())
 		.pipe(tsProject())
 		.pipe(sourcemaps.write('.'))
-		.pipe(gulp.dest(output));
+		.pipe(gulp.dest(output))
+		.pipe(debug('builded js'));
 }
 
 function copyStatic(pathPatterns, output) {
 	return gulp.src(pathPatterns)
-		.pipe(gulp.dest(output));
+		.pipe(debug('read static'))
+		.pipe(gulp.dest(output))
+		.pipe(debug('write static'));
+}
+
+function debug(title) {
+	return plugins.debug({
+		title: title
+	});
 }
 
 function getTaskName(fileName) {
