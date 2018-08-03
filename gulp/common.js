@@ -1,3 +1,5 @@
+const execa = require('execa');
+
 const ts = plugins.typescript;
 
 global.getTaskName = getTaskName;
@@ -6,6 +8,7 @@ global.buildTsServer = buildTsServer;
 global.copyStatic = copyStatic;
 global.getTargetDir = getTargetDir;
 global.staticChangeHandler = staticChangeHandler;
+global.exec = exec;
 
 // return void (0);
 
@@ -64,4 +67,8 @@ function staticChangeHandler(event) {
 		filePath,
 		targetDir
 	);
+}
+
+function exec(cmd, options) {
+	return execa(cmd, options);
 }

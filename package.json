@@ -4,8 +4,7 @@
   "description": "project evolution demo",
   "main": "./boot.js",
   "scripts": {
-    "start": "nodemon -harmony",
-    "winStart": "runNodeWeb",
+    "start": "gulp",
     "build": "gulp build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -33,8 +32,10 @@
     "@types/node": "^10.5.5",
     "browser-sync": "^2.24.6",
     "del": "^3.0.0",
+    "execa": "^0.10.0",
     "gulp": "^3.9.1",
     "gulp-debug": "^4.0.0",
+    "gulp-exec": "^3.0.2",
     "gulp-karma": "0.0.5",
     "gulp-load-plugins": "^1.5.0",
     "gulp-nodemon": "^2.2.1",
