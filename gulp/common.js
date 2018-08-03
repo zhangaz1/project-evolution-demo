@@ -5,6 +5,7 @@ global.buildTsClient = buildTsClient;
 global.buildTsServer = buildTsServer;
 global.copyStatic = copyStatic;
 global.getTargetDir = getTargetDir;
+global.staticChangeHandler = staticChangeHandler;
 
 // return void (0);
 
@@ -54,4 +55,13 @@ function getTargetDir(filePath) {
 	const targetFilePath = filePath.replace(srcFull, config.paths.dist);
 
 	return path.dirname(targetFilePath);
+}
+
+function staticChangeHandler(event) {
+	const filePath = event.path;
+	const targetDir = getTargetDir(filePath);
+	return copyStatic(
+		filePath,
+		targetDir
+	);
 }

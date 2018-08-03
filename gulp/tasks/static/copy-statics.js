@@ -1,8 +1,7 @@
 gulp.task(
 	getTaskName(path.basename(__filename)),
 	plugins.sequence(
-		'clean',
-		'copy-statics',
-		'build-ts'
+		'copy-static-client',
+		'copy-static-server'
 	)
 );

@@ -2,7 +2,7 @@ gulp.task(
 	getTaskName(path.basename(__filename)),
 	() => {
 		return gulp.watch(
-			config.files.clientStatics,
+			config.files.serverStatics,
 			staticChangeHandler
 		);
 	}

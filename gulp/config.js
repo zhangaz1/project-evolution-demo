@@ -38,6 +38,9 @@ function getFiles(paths) {
 		serverTs: [
 			join(paths.srcServer, '**/*.ts')
 		],
+		serverStatics: [
+			join(paths.src, 'boot.js')
+		],
 		clientTs: [
 			join(paths.srcClient, '**/*.ts')
 		],
