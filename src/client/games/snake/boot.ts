@@ -2,7 +2,7 @@ import consts from './../../js/common/consts.js';
 
 import snake from './snake.js';
 
-export default function() {
+export default function () {
     boot(consts.gameGround);
 }
 

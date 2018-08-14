@@ -19,7 +19,7 @@ function loadGame(game) {
 	// const module = await import(game)
 	// module.default();
 
-	import(gameModule)
+	return import(gameModule)
 		.then(function (module) {
 			module.default();
 		});
