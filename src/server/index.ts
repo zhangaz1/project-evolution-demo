@@ -1,14 +1,22 @@
 import * as Koa from 'koa';
 
-import staticFiles from './router/static';
-import clientLibs from './router/clientLibs';
-import router from './router/router';
+import clientLibs from './router/clientLibs.js';
+import router from './router/router.js';
+import staticFiles from './router/static.js';
 
-const app = new Koa();
-//
-app.use(staticFiles)
-	.use(clientLibs)
-	.use(router.routes())
-	.use(router.allowedMethods());
+export {
+	boot as default
+}
 
-app.listen(3000);
+// return void (0);
+
+function boot() {
+	const app = new Koa();
+
+	app.use(staticFiles)
+		.use(clientLibs)
+		.use(router.routes())
+		.use(router.allowedMethods());
+
+	app.listen(3000);
+}

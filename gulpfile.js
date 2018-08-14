@@ -1,6 +1,8 @@
 require('./gulp/imports');
 require('./gulp/config');
+require('./gulp/common.js');
 
-require('require-dir')('./gulp/tasks', {
+const loadTasks = require('require-dir');
+loadTasks('./gulp/tasks', {
 	recurse: true
 });
