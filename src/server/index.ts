@@ -1,8 +1,8 @@
 import * as Koa from 'koa';
 
-import staticFiles from './router/static.js';
 import clientLibs from './router/clientLibs.js';
 import router from './router/router.js';
+import staticFiles from './router/static.js';
 
 export {
 	boot as default
