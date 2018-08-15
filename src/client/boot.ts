@@ -21,7 +21,7 @@ function loadGame(game) {
 
 	return import(gameModule)
 		.then(function (module) {
-			module.boot();
+			module.default.boot();
 		});
 }
 
