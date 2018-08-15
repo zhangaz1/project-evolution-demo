@@ -73,17 +73,19 @@ class Snake implements Game {
 	}
 
 
-
 	private updateMoveStep(keyCode) {
 		let newStep = KEYCODE_STEP_MAP[keyCode];
 
-		const moveBack = this.moveStep &&
-			(this.moveStep === -newStep);
-		if (moveBack) {
+		if (this.isMoveBack(newStep)) {
 			return;
 		}
 
 		this.moveStep = newStep || this.moveStep;
+	}
+
+	private isMoveBack(newStep) {
+		return this.moveStep &&
+			(this.moveStep === -newStep);
 	}
 
 	private move() {
@@ -168,13 +170,29 @@ class Snake implements Game {
 	}
 
 	private isPopRight() {
-		return this.moveStep === 1 &&
-			this.snakeHead % GROUND_COLUMNS === 0;
+		return this.isMoveRight() &&
+			this.isHeadToNextRowFirst();
+	}
+
+	private isHeadToNextRowFirst() {
+		return this.snakeHead % GROUND_COLUMNS === 0;
+	}
+
+	private isMoveRight() {
+		return this.moveStep === 1;
 	}
 
 	private isPopLeft() {
-		return this.moveStep === -1 &&
-			this.snakeHead % GROUND_COLUMNS === MAX_WIDTH_INDEX;
+		return this.isMoveLeft() &&
+			this.isHeadToPreviousRowLast();
+	}
+
+	private isHeadToPreviousRowLast() {
+		return this.snakeHead % GROUND_COLUMNS === MAX_WIDTH_INDEX;
+	}
+
+	private isMoveLeft() {
+		return this.moveStep === -1;
 	}
 }
 
