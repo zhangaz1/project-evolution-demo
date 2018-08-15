@@ -42,12 +42,6 @@ class Snake implements Game {
 	}
 
 	async start() {
-		const playGround = this.playGround;
-		const snake = this.snake;
-		let food = this.food;
-		let moveStep = this.moveStep;
-		let snakeHead = this.snakeHead;
-
 		document.onkeydown = (e: KeyboardEvent) => {
 			let keyCode = (e || <KeyboardEvent>event).keyCode;
 			this.updateMoveStep(keyCode);
