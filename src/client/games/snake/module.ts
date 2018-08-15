@@ -8,6 +8,9 @@ function boot(env): Promise<any> {
 }
 
 const snakeModule: gameModule = {
+	id: 1,
+	name: 'snake 1',
+	describtion: 'simple snake game',
 	boot
 };
 
