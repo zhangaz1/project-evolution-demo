@@ -1,4 +1,4 @@
-import consts from './common/consts.js';
+import consts from './configs/consts.js';
 
 boot();
 
@@ -14,7 +14,7 @@ function loadGameHander() {
 }
 
 function loadGame(game) {
-	const gameModule = `./../games/${game}/module.js`;
+	const gameModule = `./games/${game}/module.js`;
 	// 暂不支持await
 	// const module = await import(game)
 	// module.default();

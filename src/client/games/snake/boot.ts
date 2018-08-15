@@ -1,4 +1,4 @@
-import consts from './../../common/consts.js';
+import consts from './../../configs/consts.js';
 
 export default function (
     game: (canvas) => Promise<any>
