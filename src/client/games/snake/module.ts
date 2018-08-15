@@ -1,17 +1,13 @@
-import gameModule from './../../core/models/game.js';
+import GameModule from './../../core/models/gameModule.js';
 
-import gameBoot from './boot.js';
-import snake from './snake.js';
+import newGame from './boot.js';
 
-function boot(env): Promise<any> {
-	return gameBoot(snake);
-}
-
-const snakeModule: gameModule = {
+const snakeModule: GameModule = {
 	id: 1,
 	name: 'snake 1',
 	describtion: 'simple snake game',
-	boot
+
+	newGame
 };
 
 export default snakeModule;

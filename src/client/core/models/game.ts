@@ -1,7 +1,6 @@
-export default interface gameModule {
-	id: number,
-	name: string,
-	describtion,
-
-	boot(canvas): Promise<any>
+interface Game {
+	start(): Promise<any>;
+	stop(): Promise<any>;
 }
+
+export default Game;

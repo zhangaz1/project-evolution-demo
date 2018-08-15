@@ -20,8 +20,9 @@ function loadGame(game) {
 	// module.default();
 
 	return import(gameModule)
-		.then(function (module) {
-			module.default.boot();
+		.then(async module => {
+			const game = await module.default.newGame();
+			return game.start();
 		});
 }
 

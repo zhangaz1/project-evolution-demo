@@ -1,20 +1,33 @@
+import Game from './../../core/models/game.js';
+
 import consts from './../../configs/consts.js';
+import {
+    CELL_WIDTH,
+    CELL_HEIGHT,
+
+    GROUND_COLUMNS,
+    GROUND_ROWS,
+} from './config.js';
+const CANVAS_WIDTH = CELL_WIDTH * GROUND_COLUMNS;
+const CANVAS_HEIGHT = CELL_HEIGHT * GROUND_ROWS;
+
+import Snake from './snake.js';
 
 export default function (
-    game: (canvas) => Promise<any>
-): Promise<any> {
-    return boot(consts.gameGround, game);
-}
+    env: Object = {},
+    container: Element = consts.gameGround.get(0)
+): Promise<Game> {
+    var canvas = createCanvas();
+    $(container).append(canvas);
 
-// return void (0);
-
-function boot(gameGround, gamePlay): Promise<any> {
-    const canvas = createCanvas();
-    gameGround.append(canvas);
-    return gamePlay(canvas);
+    var game = new Snake(canvas);
+    return Promise.resolve(game);
 }
 
 function createCanvas() {
-    return $('<canvas id="can" width="400" height="400" style="background: black; display: none1;"></canvas>')
+    return $(`
+            <canvas id="can" width="${ CANVAS_WIDTH}" height="${CANVAS_HEIGHT}" style="background: black; display: none1;">
+            </canvas>
+        `)
         .get(0);
 }

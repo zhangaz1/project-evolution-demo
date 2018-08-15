@@ -6,6 +6,7 @@ import {
 	GROUND_ROWS,
 } from './config.js';
 
+
 // 游戏区总单元格数据
 const CELLS = GROUND_COLUMNS * GROUND_ROWS;
 const CELLS_MAX_LENGTH = CELLS - 1;
@@ -21,7 +22,7 @@ const CELL_CONTENT_HEIGHT = CELL_HEIGHT - CELL_BORDER_SIZE * 2;
  *
  * 		fillCell()：可以绘制指定cell为指定颜色
  */
-export default class PlayGround {
+class PlayGround {
 	private context: Canvas2DContextAttributes;
 
 	constructor(canvas) {
@@ -56,3 +57,10 @@ export default class PlayGround {
 		return row * CELL_HEIGHT + CELL_BORDER_SIZE;
 	}
 }
+
+
+export {
+	PlayGround,
+	CELLS,
+	CELLS_MAX_LENGTH,
+};
