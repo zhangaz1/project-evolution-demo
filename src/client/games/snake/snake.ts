@@ -1,6 +1,7 @@
 import Game from './../../core/models/game.js';
 
 import Directions from './types/directions.js';
+import Colors from './types/colors.js';
 
 import {
 	GROUND_COLUMNS,
@@ -103,15 +104,15 @@ class Snake implements Game {
 	}
 
 	private drawHead() {
-		this.draw(this.snakeHead, 'Lime');
+		this.draw(this.snakeHead, Colors.Lime);
 	}
 
 	private drawFood() {
-		this.draw(this.food, 'Yellow');
+		this.draw(this.food, Colors.Yellow);
 	}
 
 	private drawTailGround(tailGround) {
-		this.draw(tailGround, 'Black');
+		this.draw(tailGround, Colors.Black);
 	}
 
 	private draw(cellIndex, color) {
