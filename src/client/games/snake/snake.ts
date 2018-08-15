@@ -1,150 +1,204 @@
-function snake(canvas) {
-	const WIDTH: number = 20;
-	const MAX_WIDTH_INDEX = WIDTH - 1;
-	const HEIGHT = 20;
-	const POSITION_WIDTH = 20;
-	const POSITION_HEIGHT = 20;
-	const POSITIONS_LENGTH = WIDTH * HEIGHT;
-	const MAX_POSITIONS_INDEX = POSITIONS_LENGTH - 1;
+import Game from './../../core/models/game.js';
 
-	const KEYCODE_STEP_MAP = {
-		'37': -1, // left
-		'38': -WIDTH, // top
-		'39': 1, // right
-		'40': WIDTH // down
-	};
+import Directions from './types/directions.js';
+import Colors from './types/colors.js';
+import Keys from './types/keys.js';
 
-	const snake: Array<number> = [42, 41];
-	const ctx = canvas.getContext("2d");
 
-	let food: number = 43,
-		moveStep: number = 1,
-		snakeHead: number;
+import {
+	GROUND_COLUMNS,
+} from './config.js';
 
-	document.onkeydown = function (e: KeyboardEvent) {
-		let keyCode = (e || <KeyboardEvent>event).keyCode;
-		updateMoveStep(keyCode);
-	};
+import {
+	PlayGround,
+	CELLS,
+	CELLS_MAX_LENGTH,
+} from './playGround.js';
 
-	move();
 
-	return void (0);
+const KEYCODE_DIRECTION_MAP: Directions = {
+	37: -1, 				// left
+	38: -GROUND_COLUMNS, 	// top
+	39: 1, 					// right
+	40: GROUND_COLUMNS 		// down
+};
+const MAX_WIDTH_INDEX = GROUND_COLUMNS - 1;
 
-	function updateMoveStep(keyCode) {
-		let newStep = KEYCODE_STEP_MAP[keyCode];
 
-		const moveBack = moveStep &&
-			(moveStep === -newStep);
-		if (moveBack) {
+class Snake implements Game {
+	private playGround: PlayGround;
+
+	private snake: number[];
+	private food: number;
+	private direction: number;
+	private snakeHead: number;
+	private next: Function;
+	private timer: number;
+
+	constructor(private readonly canvas: Element) {
+		this.snake = [2, 1];
+		this.food = 3;
+		this.direction = KEYCODE_DIRECTION_MAP[Keys.Right];
+		// this.snakeHead = this.snake[0];
+		this.next = this.move.bind(this);
+		this.timer = 0;
+
+		this.playGround = new PlayGround(canvas);
+	}
+
+	public destroy() {
+		document.onkeydown = null;
+		if (this.timer) {
+			clearTimeout(this.timer);
+		}
+
+		this.playGround.destroy();
+		this.playGround = null;
+
+		$(this.canvas).remove();
+	}
+
+	async start() {
+		document.onkeydown = (e: KeyboardEvent) => {
+			let keyCode = (e || <KeyboardEvent>event).keyCode;
+			this.updateMoveStep(keyCode);
+		};
+
+		this.move();
+
+		return Promise.resolve();
+	}
+
+	async stop() {
+		this.destroy();
+		return Promise.resolve();
+	}
+
+
+	private updateMoveStep(keyCode) {
+		let newDirection = KEYCODE_DIRECTION_MAP[keyCode];
+
+		if (this.isMoveBack(newDirection)) {
 			return;
 		}
 
-		moveStep = newStep || moveStep;
+		this.direction = newDirection || this.direction;
 	}
 
-	function draw(positionIndex, c) {
-		ctx.fillStyle = c;
-		let x = getPositionX(positionIndex);
-		let y = getPositionY(positionIndex);
-		ctx.fillRect(x, y, 18, 18);
+	private isMoveBack(newDirection) {
+		return this.direction &&
+			(this.direction === -newDirection);
 	}
 
-	function getPositionX(positionIndex) {
-		let column = positionIndex % WIDTH;
-		return column * POSITION_WIDTH + 1;
-	}
-
-	function getPositionY(positionIndex) {
-		let row = ~~(positionIndex / WIDTH);
-		return row * POSITION_HEIGHT + 1;
-	}
-
-	function move() {
-		unshiftNewHead();
-		if (isGameOver()) {
+	private move() {
+		this.unshiftNewHead();
+		if (this.isGameOver()) {
 			return console.log("GAME OVER");
 		}
-		drawHead();
-		if (isEatFood()) {
-			randomNewFood();
-			drawFood();
+
+		this.drawHead();
+		if (this.isEatFood()) {
+			this.randomNewFood();
+			this.drawFood();
 		} else {
-			let tailGround = snake.pop();
-			drawTailGround(tailGround);
+			let tailGround = this.snake.pop();
+			this.drawTailGround(tailGround);
 		}
-		setNextMove();
+		this.setNextMove();
 	}
 
-	function drawHead() {
-		draw(snakeHead, "Lime");
+	private drawHead() {
+		this.draw(this.snakeHead, Colors.Lime);
 	}
 
-	function drawFood() {
-		draw(food, "Yellow");
+	private drawFood() {
+		this.draw(this.food, Colors.Yellow);
 	}
 
-	function drawTailGround(tailGround) {
-		draw(tailGround, "Black");
+	private drawTailGround(tailGround) {
+		this.draw(tailGround, Colors.Black);
 	}
 
-	function setNextMove() {
-		setTimeout(move, 130);
+	private draw(cellIndex, color) {
+		this.playGround
+			.fillCell(cellIndex, color);
 	}
 
-	function isEatFood() {
-		return snakeHead === food;
+	private setNextMove() {
+		this.timer = setTimeout(this.next, 130);
 	}
 
-	function unshiftNewHead() {
-		snakeHead = snake[0] + moveStep;
-		snake.unshift(snakeHead);
+	private isEatFood() {
+		return this.snakeHead === this.food;
 	}
 
-	function randomNewFood() {
+	private unshiftNewHead() {
+		this.snakeHead = this.snake[0] + this.direction;
+		this.snake.unshift(this.snakeHead);
+	}
+
+	private randomNewFood() {
 		do {
-			food = randomPosition();
-		} while (isFoodOnSelf());
+			this.food = this.randomPosition();
+		} while (this.isFoodOnSelf());
 	}
 
-	function isFoodOnSelf() {
-		return snake.indexOf(food) >= 0;
+	private isFoodOnSelf() {
+		return this.snake.indexOf(this.food) >= 0;
 	}
 
-	function randomPosition() {
-		return ~~(Math.random() * POSITIONS_LENGTH);
+	private randomPosition() {
+		return ~~(Math.random() * CELLS);
 	}
 
-	function isGameOver() {
-		return isPopSelf() ||
-			isPopTop() ||
-			isPopBottom() ||
-			isPopRight() ||
-			isPopLeft();
+	private isGameOver() {
+		return this.isPopSelf() ||
+			this.isPopTop() ||
+			this.isPopBottom() ||
+			this.isPopRight() ||
+			this.isPopLeft();
 	}
 
-	function isPopSelf() {
-		return snake.indexOf(snakeHead, 1) > 0;
+	private isPopSelf() {
+		return this.snake.indexOf(this.snakeHead, 1) > 0;
 	}
 
-	function isPopTop() {
-		return snakeHead < 0;
+	private isPopTop() {
+		return this.snakeHead < 0;
 	}
 
-	function isPopBottom() {
-		return snakeHead > MAX_POSITIONS_INDEX;
+	private isPopBottom() {
+		return this.snakeHead > CELLS_MAX_LENGTH;
 	}
 
-	function isPopRight() {
-		return moveStep === 1 &&
-			snakeHead % WIDTH === 0;
+	private isPopRight() {
+		return this.isMoveRight() &&
+			this.isHeadToNextRowFirst();
 	}
 
-	function isPopLeft() {
-		return moveStep === -1 &&
-			snakeHead % WIDTH === MAX_WIDTH_INDEX;
+	private isHeadToNextRowFirst() {
+		return this.snakeHead % GROUND_COLUMNS === 0;
+	}
+
+	private isMoveRight() {
+		const right = KEYCODE_DIRECTION_MAP[Keys.Right];
+		return this.direction === right;
+	}
+
+	private isPopLeft() {
+		return this.isMoveLeft() &&
+			this.isHeadToPreviousRowLast();
+	}
+
+	private isHeadToPreviousRowLast() {
+		return this.snakeHead % GROUND_COLUMNS === MAX_WIDTH_INDEX;
+	}
+
+	private isMoveLeft() {
+		const left = KEYCODE_DIRECTION_MAP[Keys.Left];
+		return this.direction === left;
 	}
 }
 
-export {
-	snake as default
-};
+
+export default Snake;

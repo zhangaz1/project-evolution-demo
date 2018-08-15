@@ -3,6 +3,4 @@ const consts = {
 	gameScripts: $('#game-scripts'),
 };
 
-export {
-	consts as default
-};
+export default consts;
