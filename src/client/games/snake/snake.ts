@@ -4,7 +4,6 @@ import Directions from './types/directions.js';
 
 import {
 	GROUND_COLUMNS,
-	GROUND_ROWS,
 } from './config.js';
 
 import {
@@ -24,137 +23,147 @@ const MAX_WIDTH_INDEX = GROUND_COLUMNS - 1;
 
 
 class Snake implements Game {
-	private playGround: PlayGround;
+	private readonly playGround: PlayGround;
+
+	private readonly snake: number[];
+	private food: number;
+	private moveStep: number;
+	private snakeHead: number;
+	private next: Function;
 
 	constructor(canvas) {
+		this.snake = [2, 1];
+		this.food = 3;
+		this.moveStep = 1;
+		// this.snakeHead = this.snake[0];
+		this.next = this.move.bind(this);
+
 		this.playGround = new PlayGround(canvas);
 	}
 
 	async start() {
 		const playGround = this.playGround;
+		const snake = this.snake;
+		let food = this.food;
+		let moveStep = this.moveStep;
+		let snakeHead = this.snakeHead;
 
-		const snake: Array<number> = [42, 41];
-
-		let food: number = 43,
-			moveStep: number = 1,
-			snakeHead: number;
-
-		document.onkeydown = function (e: KeyboardEvent) {
+		document.onkeydown = (e: KeyboardEvent) => {
 			let keyCode = (e || <KeyboardEvent>event).keyCode;
-			updateMoveStep(keyCode);
+			this.updateMoveStep(keyCode);
 		};
 
-		move();
+		this.move();
 
 		return Promise.resolve();
-
-		// return void (0);
-
-		function updateMoveStep(keyCode) {
-			let newStep = KEYCODE_STEP_MAP[keyCode];
-
-			const moveBack = moveStep &&
-				(moveStep === -newStep);
-			if (moveBack) {
-				return;
-			}
-
-			moveStep = newStep || moveStep;
-		}
-
-		function move() {
-			unshiftNewHead();
-			if (isGameOver()) {
-				return console.log("GAME OVER");
-			}
-			drawHead();
-			if (isEatFood()) {
-				randomNewFood();
-				drawFood();
-			} else {
-				let tailGround = snake.pop();
-				drawTailGround(tailGround);
-			}
-			setNextMove();
-		}
-
-		function drawHead() {
-			draw(snakeHead, 'Lime');
-		}
-
-		function drawFood() {
-			draw(food, 'Yellow');
-		}
-
-		function drawTailGround(tailGround) {
-			draw(tailGround, 'Black');
-		}
-
-		function draw(cellIndex, color) {
-			playGround.fillCell(cellIndex, color);
-		}
-
-		function setNextMove() {
-			setTimeout(move, 130);
-		}
-
-		function isEatFood() {
-			return snakeHead === food;
-		}
-
-		function unshiftNewHead() {
-			snakeHead = snake[0] + moveStep;
-			snake.unshift(snakeHead);
-		}
-
-		function randomNewFood() {
-			do {
-				food = randomPosition();
-			} while (isFoodOnSelf());
-		}
-
-		function isFoodOnSelf() {
-			return snake.indexOf(food) >= 0;
-		}
-
-		function randomPosition() {
-			return ~~(Math.random() * CELLS);
-		}
-
-		function isGameOver() {
-			return isPopSelf() ||
-				isPopTop() ||
-				isPopBottom() ||
-				isPopRight() ||
-				isPopLeft();
-		}
-
-		function isPopSelf() {
-			return snake.indexOf(snakeHead, 1) > 0;
-		}
-
-		function isPopTop() {
-			return snakeHead < 0;
-		}
-
-		function isPopBottom() {
-			return snakeHead > CELLS_MAX_LENGTH;
-		}
-
-		function isPopRight() {
-			return moveStep === 1 &&
-				snakeHead % GROUND_COLUMNS === 0;
-		}
-
-		function isPopLeft() {
-			return moveStep === -1 &&
-				snakeHead % GROUND_COLUMNS === MAX_WIDTH_INDEX;
-		}
-
 	}
 
 	async stop() {
 		return Promise.resolve();
+	}
+
+
+
+	private updateMoveStep(keyCode) {
+		let newStep = KEYCODE_STEP_MAP[keyCode];
+
+		const moveBack = this.moveStep &&
+			(this.moveStep === -newStep);
+		if (moveBack) {
+			return;
+		}
+
+		this.moveStep = newStep || this.moveStep;
+	}
+
+	private move() {
+		this.unshiftNewHead();
+		if (this.isGameOver()) {
+			return console.log("GAME OVER");
+		}
+		this.drawHead();
+		if (this.isEatFood()) {
+			this.randomNewFood();
+			this.drawFood();
+		} else {
+			let tailGround = this.snake.pop();
+			this.drawTailGround(tailGround);
+		}
+		this.setNextMove();
+	}
+
+	private drawHead() {
+		this.draw(this.snakeHead, 'Lime');
+	}
+
+	private drawFood() {
+		this.draw(this.food, 'Yellow');
+	}
+
+	private drawTailGround(tailGround) {
+		this.draw(tailGround, 'Black');
+	}
+
+	private draw(cellIndex, color) {
+		this.playGround
+			.fillCell(cellIndex, color);
+	}
+
+	private setNextMove() {
+		setTimeout(this.next, 130);
+	}
+
+	private isEatFood() {
+		return this.snakeHead === this.food;
+	}
+
+	private unshiftNewHead() {
+		this.snakeHead = this.snake[0] + this.moveStep;
+		this.snake.unshift(this.snakeHead);
+	}
+
+	private randomNewFood() {
+		do {
+			this.food = this.randomPosition();
+		} while (this.isFoodOnSelf());
+	}
+
+	private isFoodOnSelf() {
+		return this.snake.indexOf(this.food) >= 0;
+	}
+
+	private randomPosition() {
+		return ~~(Math.random() * CELLS);
+	}
+
+	private isGameOver() {
+		return this.isPopSelf() ||
+			this.isPopTop() ||
+			this.isPopBottom() ||
+			this.isPopRight() ||
+			this.isPopLeft();
+	}
+
+	private isPopSelf() {
+		return this.snake.indexOf(this.snakeHead, 1) > 0;
+	}
+
+	private isPopTop() {
+		return this.snakeHead < 0;
+	}
+
+	private isPopBottom() {
+		return this.snakeHead > CELLS_MAX_LENGTH;
+	}
+
+	private isPopRight() {
+		return this.moveStep === 1 &&
+			this.snakeHead % GROUND_COLUMNS === 0;
+	}
+
+	private isPopLeft() {
+		return this.moveStep === -1 &&
+			this.snakeHead % GROUND_COLUMNS === MAX_WIDTH_INDEX;
 	}
 }
 
