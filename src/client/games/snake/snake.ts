@@ -2,6 +2,8 @@ import Game from './../../core/models/game.js';
 
 import Directions from './types/directions.js';
 import Colors from './types/colors.js';
+import Keys from './types/keys.js';
+
 
 import {
 	GROUND_COLUMNS,
@@ -14,7 +16,7 @@ import {
 } from './playGround.js';
 
 
-const KEYCODE_STEP_MAP: Directions = {
+const KEYCODE_DIRECTION_MAP: Directions = {
 	37: -1, 				// left
 	38: -GROUND_COLUMNS, 	// top
 	39: 1, 					// right
@@ -28,7 +30,7 @@ class Snake implements Game {
 
 	private snake: number[];
 	private food: number;
-	private moveStep: number;
+	private direction: number;
 	private snakeHead: number;
 	private next: Function;
 	private timer: number;
@@ -36,7 +38,7 @@ class Snake implements Game {
 	constructor(private readonly canvas: Element) {
 		this.snake = [2, 1];
 		this.food = 3;
-		this.moveStep = 1;
+		this.direction = KEYCODE_DIRECTION_MAP[Keys.Right];
 		// this.snakeHead = this.snake[0];
 		this.next = this.move.bind(this);
 		this.timer = 0;
@@ -74,18 +76,18 @@ class Snake implements Game {
 
 
 	private updateMoveStep(keyCode) {
-		let newStep = KEYCODE_STEP_MAP[keyCode];
+		let newDirection = KEYCODE_DIRECTION_MAP[keyCode];
 
-		if (this.isMoveBack(newStep)) {
+		if (this.isMoveBack(newDirection)) {
 			return;
 		}
 
-		this.moveStep = newStep || this.moveStep;
+		this.direction = newDirection || this.direction;
 	}
 
-	private isMoveBack(newStep) {
-		return this.moveStep &&
-			(this.moveStep === -newStep);
+	private isMoveBack(newDirection) {
+		return this.direction &&
+			(this.direction === -newDirection);
 	}
 
 	private move() {
@@ -131,7 +133,7 @@ class Snake implements Game {
 	}
 
 	private unshiftNewHead() {
-		this.snakeHead = this.snake[0] + this.moveStep;
+		this.snakeHead = this.snake[0] + this.direction;
 		this.snake.unshift(this.snakeHead);
 	}
 
@@ -179,7 +181,8 @@ class Snake implements Game {
 	}
 
 	private isMoveRight() {
-		return this.moveStep === 1;
+		const right = KEYCODE_DIRECTION_MAP[Keys.Right];
+		return this.direction === right;
 	}
 
 	private isPopLeft() {
@@ -192,7 +195,8 @@ class Snake implements Game {
 	}
 
 	private isMoveLeft() {
-		return this.moveStep === -1;
+		const left = KEYCODE_DIRECTION_MAP[Keys.Left];
+		return this.direction === left;
 	}
 }
 
