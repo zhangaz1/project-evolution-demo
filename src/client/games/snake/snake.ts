@@ -1,4 +1,8 @@
+import PlayGround from './playGround.js';
+
 function snake(canvas) {
+	const playGround = new PlayGround(canvas);
+
 	const WIDTH: number = 20;
 	const MAX_WIDTH_INDEX = WIDTH - 1;
 	const HEIGHT = 20;
@@ -42,23 +46,6 @@ function snake(canvas) {
 		moveStep = newStep || moveStep;
 	}
 
-	function draw(positionIndex, c) {
-		ctx.fillStyle = c;
-		let x = getPositionX(positionIndex);
-		let y = getPositionY(positionIndex);
-		ctx.fillRect(x, y, 18, 18);
-	}
-
-	function getPositionX(positionIndex) {
-		let column = positionIndex % WIDTH;
-		return column * POSITION_WIDTH + 1;
-	}
-
-	function getPositionY(positionIndex) {
-		let row = ~~(positionIndex / WIDTH);
-		return row * POSITION_HEIGHT + 1;
-	}
-
 	function move() {
 		unshiftNewHead();
 		if (isGameOver()) {
@@ -76,15 +63,19 @@ function snake(canvas) {
 	}
 
 	function drawHead() {
-		draw(snakeHead, "Lime");
+		draw(snakeHead, 'Lime');
 	}
 
 	function drawFood() {
-		draw(food, "Yellow");
+		draw(food, 'Yellow');
 	}
 
 	function drawTailGround(tailGround) {
-		draw(tailGround, "Black");
+		draw(tailGround, 'Black');
+	}
+
+	function draw(cellIndex, color) {
+		playGround.fillCell(cellIndex, color);
 	}
 
 	function setNextMove() {
