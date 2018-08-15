@@ -1,19 +1,29 @@
 import consts from './configs/consts.js';
 
+let currentGame = null;
+
 boot();
 
 // return void (0);
 
 function boot() {
 	$('#snake').click(loadGameHander);
+	$('#stop').click(stopHandler);
 }
 
-function loadGameHander() {
+async function loadGameHander() {
 	clearGame();
-	loadGame(this.id);
+	currentGame = await loadGame(this.id);
 }
 
-function loadGame(game) {
+async function stopHandler() {
+	if (currentGame) {
+		await currentGame.stop();
+		currentGame = null;
+	}
+}
+
+async function loadGame(game) {
 	const gameModule = `./games/${game}/module.js`;
 	// 暂不支持await
 	// const module = await import(game)
@@ -22,7 +32,8 @@ function loadGame(game) {
 	return import(gameModule)
 		.then(async module => {
 			const game = await module.default.newGame();
-			return game.start();
+			await game.start();
+			return game;
 		});
 }
 

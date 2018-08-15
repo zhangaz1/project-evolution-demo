@@ -23,22 +23,36 @@ const MAX_WIDTH_INDEX = GROUND_COLUMNS - 1;
 
 
 class Snake implements Game {
-	private readonly playGround: PlayGround;
+	private playGround: PlayGround;
 
-	private readonly snake: number[];
+	private snake: number[];
 	private food: number;
 	private moveStep: number;
 	private snakeHead: number;
 	private next: Function;
+	private timer: number;
 
-	constructor(canvas) {
+	constructor(private readonly canvas: Element) {
 		this.snake = [2, 1];
 		this.food = 3;
 		this.moveStep = 1;
 		// this.snakeHead = this.snake[0];
 		this.next = this.move.bind(this);
+		this.timer = 0;
 
 		this.playGround = new PlayGround(canvas);
+	}
+
+	public destroy() {
+		document.onkeydown = null;
+		if (this.timer) {
+			clearTimeout(this.timer);
+		}
+
+		this.playGround.destroy();
+		this.playGround = null;
+
+		$(this.canvas).remove();
 	}
 
 	async start() {
@@ -53,6 +67,7 @@ class Snake implements Game {
 	}
 
 	async stop() {
+		this.destroy();
 		return Promise.resolve();
 	}
 
@@ -75,6 +90,7 @@ class Snake implements Game {
 		if (this.isGameOver()) {
 			return console.log("GAME OVER");
 		}
+
 		this.drawHead();
 		if (this.isEatFood()) {
 			this.randomNewFood();
@@ -104,7 +120,7 @@ class Snake implements Game {
 	}
 
 	private setNextMove() {
-		setTimeout(this.next, 130);
+		this.timer = setTimeout(this.next, 130);
 	}
 
 	private isEatFood() {

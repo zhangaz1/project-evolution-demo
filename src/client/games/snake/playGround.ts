@@ -29,6 +29,10 @@ class PlayGround {
 		this.context = canvas.getContext('2d');
 	}
 
+	public destroy() {
+		this.context = null;
+	}
+
 	/**
 	 * 用指定颜色填充指定索引位置的cell
 	 * @param cellIndex : 要填充的cell的索引
