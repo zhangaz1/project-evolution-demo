@@ -1,17 +1,17 @@
 import consts from './../../js/common/consts.js';
 
-import snake from './snake.js';
-
-export default function () {
-    boot(consts.gameGround);
+export default function (
+    game: (canvas) => Promise<any>
+): Promise<any> {
+    return boot(consts.gameGround, game);
 }
 
 // return void (0);
 
-function boot(gameGround) {
+function boot(gameGround, gamePlay): Promise<any> {
     const canvas = createCanvas();
     gameGround.append(canvas);
-    snake(canvas);
+    return gamePlay(canvas);
 }
 
 function createCanvas() {

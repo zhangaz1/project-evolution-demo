@@ -14,14 +14,14 @@ function loadGameHander() {
 }
 
 function loadGame(game) {
-	const gameModule = `./../games/${game}/boot.js`;
+	const gameModule = `./../games/${game}/module.js`;
 	// 暂不支持await
 	// const module = await import(game)
 	// module.default();
 
 	return import(gameModule)
 		.then(function (module) {
-			module.default();
+			module.boot();
 		});
 }
 
