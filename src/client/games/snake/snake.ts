@@ -69,7 +69,7 @@ class Snake implements Game {
 		return Promise.resolve();
 	}
 
-	async stop() {
+	async close() {
 		this.destroy();
 		return Promise.resolve();
 	}

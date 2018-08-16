@@ -8,7 +8,7 @@ boot();
 
 function boot() {
 	$('#snake').click(loadGameHander);
-	$('#stop').click(stopHandler);
+	$('#close').click(closeHandler);
 }
 
 async function loadGameHander() {
@@ -16,9 +16,9 @@ async function loadGameHander() {
 	currentGame = await loadGame(this.id);
 }
 
-async function stopHandler() {
+async function closeHandler() {
 	if (currentGame) {
-		await currentGame.stop();
+		await currentGame.close();
 		currentGame = null;
 	}
 }
