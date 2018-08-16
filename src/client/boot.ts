@@ -8,6 +8,11 @@ boot();
 
 function boot() {
 	$('#snake').click(loadGameHander);
+
+	$('#start').click(startHandler);
+	$('#pause').click(pauseHandler);
+	$('#continue').click(continueHandler);
+	$('#stop').click(stopHandler);
 	$('#close').click(closeHandler);
 }
 
@@ -16,11 +21,33 @@ async function loadGameHander() {
 	currentGame = await loadGame(this.id);
 }
 
+async function startHandler() {
+	return tryGameAction('start');
+}
+
+async function pauseHandler() {
+	return tryGameAction('pause');
+}
+
+async function continueHandler() {
+	return tryGameAction('continue');
+}
+
+async function stopHandler() {
+	return tryGameAction('stop');
+}
+
 async function closeHandler() {
+	return tryGameAction('close')
+		.then(() => currentGame = null);
+}
+
+async function tryGameAction(action: string) {
 	if (currentGame) {
-		await currentGame.close();
-		currentGame = null;
+		return currentGame[action]();
 	}
+
+	return Promise.resolve();
 }
 
 async function loadGame(game) {
@@ -32,7 +59,7 @@ async function loadGame(game) {
 	return import(gameModule)
 		.then(async module => {
 			const game = await module.default.newGame();
-			await game.start();
+			await game.open();
 			return game;
 		});
 }

@@ -25,6 +25,12 @@ const KEYCODE_DIRECTION_MAP: Directions = {
 const MAX_WIDTH_INDEX = GROUND_COLUMNS - 1;
 
 
+/**
+ * Snake游戏类
+ *
+ * 		start：开始游戏
+ * 		close：关闭游戏
+ */
 class Snake implements Game {
 	private playGround: PlayGround;
 
@@ -34,18 +40,25 @@ class Snake implements Game {
 	private snakeHead: number;
 	private next: Function;
 	private timer: number;
+	private isPaused: boolean;
+	private isStoped: boolean;
 
-	constructor(private readonly canvas: Element) {
+	constructor(private canvas: Element) {
 		this.snake = [2, 1];
 		this.food = 3;
 		this.direction = KEYCODE_DIRECTION_MAP[Keys.Right];
 		// this.snakeHead = this.snake[0];
 		this.next = this.move.bind(this);
 		this.timer = 0;
+		this.isPaused = false;
+		this.isStoped = false;
 
 		this.playGround = new PlayGround(canvas);
 	}
 
+	/**
+	 * 资源清理
+	 */
 	public destroy() {
 		document.onkeydown = null;
 		if (this.timer) {
@@ -56,20 +69,51 @@ class Snake implements Game {
 		this.playGround = null;
 
 		$(this.canvas).remove();
+		// this.canvas = null;
 	}
 
-	async start() {
+	public async open() {
 		document.onkeydown = (e: KeyboardEvent) => {
 			let keyCode = (e || <KeyboardEvent>event).keyCode;
 			this.updateMoveStep(keyCode);
 		};
 
-		this.move();
-
 		return Promise.resolve();
 	}
 
-	async close() {
+	/**
+	 *
+	 */
+	public async start() {
+		this.move();
+	}
+
+	/**
+	 *
+	 */
+	public async pause() {
+		this.isPaused = true;
+	}
+
+	/**
+	 *
+	 */
+	public async continue() {
+		this.isPaused = false;
+		this.start();
+	}
+
+	/**
+	 *
+	 */
+	public async stop() {
+		this.isStop = true;
+	}
+
+	/**
+	 *
+	 */
+	public async close() {
 		this.destroy();
 		return Promise.resolve();
 	}
@@ -91,6 +135,10 @@ class Snake implements Game {
 	}
 
 	private move() {
+		if (this.isStoped || this.isPaused) {
+			return;
+		}
+
 		this.unshiftNewHead();
 		if (this.isGameOver()) {
 			return console.log("GAME OVER");
@@ -104,6 +152,7 @@ class Snake implements Game {
 			let tailGround = this.snake.pop();
 			this.drawTailGround(tailGround);
 		}
+
 		this.setNextMove();
 	}
 
