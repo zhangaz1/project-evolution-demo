@@ -119,6 +119,7 @@ class Snake implements Game {
 	}
 
 
+
 	private updateMoveStep(keyCode) {
 		let newDirection = KEYCODE_DIRECTION_MAP[keyCode];
 
