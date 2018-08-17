@@ -107,7 +107,7 @@ class Snake implements Game {
 	 *
 	 */
 	public async stop() {
-		this.isStop = true;
+		this.isStoped = true;
 	}
 
 	/**
@@ -141,6 +141,7 @@ class Snake implements Game {
 
 		this.unshiftNewHead();
 		if (this.isGameOver()) {
+			this.stop();
 			return console.log("GAME OVER");
 		}
 
