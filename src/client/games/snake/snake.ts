@@ -1,3 +1,7 @@
+// import * as $ from '@libs/jquery/dist/jquery.js';
+// import * as a$ from './../../libs/jquery/dist/jquery.js';
+// console.log(a$);
+
 import Game from './../../core/models/game.js';
 
 import Directions from './types/directions.js';
@@ -17,7 +21,7 @@ import PlayGround from './playGround.js';
  * 		close：关闭游戏
  */
 export default class Snake implements Game {
-	private readonly canvas: Element;
+	private /*readonly*/ canvas: Element;
 	private /*readonly*/ playGround: PlayGround;
 
 	private readonly config: Config;
@@ -72,7 +76,7 @@ export default class Snake implements Game {
 		this.playGround = null;
 
 		$(this.canvas).remove();
-		// this.canvas = null;
+		this.canvas = null;
 	}
 
 	public async open() {

@@ -47,7 +47,8 @@ function getFiles(paths) {
 		clientStatics: [
 			join(paths.srcClient, '**/images/**/*.*'),
 			join(paths.srcClient, '**/*.css'),
-			join(paths.srcClient, '**/*.html')
+			join(paths.srcClient, '**/*.html'),
+			join(paths.srcClient, '**/libs/**/*.*')
 		]
 	};
 }
