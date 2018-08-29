@@ -5,6 +5,6 @@ const clientLibsFolder: string = getClientLibsFolder();
 export default serve(clientLibsFolder);
 
 function getClientLibsFolder(): string {
-	const clientLibsFolder = join(__dirname, './../../../bower_components');
+	const clientLibsFolder = join(__dirname, './../../../node_modules'); // './../../../bower_components'
 	return normalize(clientLibsFolder);
 }
