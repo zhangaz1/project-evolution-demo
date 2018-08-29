@@ -18,7 +18,7 @@ import PlayGround from './playGround.js';
  */
 export default class Snake implements Game {
 	private readonly canvas: Element;
-	private readonly playGround: PlayGround;
+	private /*readonly*/ playGround: PlayGround;
 
 	private readonly config: Config;
 
