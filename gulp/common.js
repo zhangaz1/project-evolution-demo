@@ -47,7 +47,8 @@ function debug(title) {
 	});
 }
 
-function getTaskName(fileName) {
+function getTaskName(fullPath) {
+	const fileName = path.basename(fullPath);
 	return path.basename(fileName, '.js');
 }
 

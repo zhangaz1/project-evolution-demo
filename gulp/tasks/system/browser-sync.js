@@ -1,5 +1,7 @@
+const fileFullPath = __filename;
+
 gulp.task(
-	getTaskName(path.basename(__filename)),
+	getTaskName(fileFullPath),
 	cb => {
 		setTimeout(() => {
 			const shell = exec('browser-sync', ['start', '--config', 'bs-config.js'])
