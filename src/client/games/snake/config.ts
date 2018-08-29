@@ -1,17 +1,51 @@
-const baseSize = 20;
+import DefaultConfig from './defaultConfig.js';
 
-// 游戏区单元格宽度和高度
-const cellWidth = baseSize;
-const cellHeight = baseSize;
+export default class Config extends DefaultConfig {
+	constructor(settings: undefined | null | object) {
+		super();
 
-// 游戏区行列数
-const groundColumns = baseSize;
-const groundRows = baseSize;
+		if (settings) {
+			Object.assign(this, settings);
+		}
+	}
 
-export {
-	cellWidth as CELL_WIDTH,
-	cellHeight as CELL_HEIGHT,
+	private _cellContentWidth = null;
+	public get cellContentWidth() {
+		if (!this._cellContentWidth) {
+			this._cellContentWidth = this.cellWidth - this.cellBorderWidth * 2;
+		}
+		return this._cellContentWidth;
+	}
 
-	groundColumns as GROUND_COLUMNS,
-	groundRows as GROUND_ROWS,
-};
+	private _cellContentHeight = null;
+	public get cellContentHeight() {
+		if (!this._cellContentHeight) {
+			this._cellContentHeight = this.cellHeight - this.cellBorderWidth * 2;
+		}
+		return this._cellContentHeight;
+	}
+
+	private _cells = null;
+	public get cells() {
+		if (!this._cells) {
+			this._cells = this.groundColumns * this.groundRows;
+		}
+		return this._cells;
+	}
+
+	private _canvasWidth = null;
+	public get canvasWidth() {
+		if (!this._canvasWidth) {
+			this._canvasWidth = this.cellWidth * this.groundRows;
+		}
+		return this._canvasWidth;
+	}
+
+	private _canvasHeight = null;
+	public get canvasHeight() {
+		if (!this._canvasHeight) {
+			this._canvasHeight = this.cellHeight * this.groundRows;
+		}
+		return this._canvasHeight;
+	}
+}
