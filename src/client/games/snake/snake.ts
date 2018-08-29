@@ -3,49 +3,65 @@ import Game from './../../core/models/game.js';
 import Directions from './types/directions.js';
 import Colors from './types/colors.js';
 import Keys from './types/keys.js';
+import Env from './types/env.js';
+
+import Config from './config.js';
+
+import PlayGround from './playGround.js';
 
 
-import {
-	GROUND_COLUMNS,
-} from './config.js';
+/**
+ * Snake游戏类
+ *
+ * 		start：开始游戏
+ * 		close：关闭游戏
+ */
+export default class Snake implements Game {
+	private readonly canvas: Element;
+	private readonly playGround: PlayGround;
 
-import {
-	PlayGround,
-	CELLS,
-	CELLS_MAX_LENGTH,
-} from './playGround.js';
+	private readonly config: Config;
 
-
-const KEYCODE_DIRECTION_MAP: Directions = {
-	37: -1, 				// left
-	38: -GROUND_COLUMNS, 	// top
-	39: 1, 					// right
-	40: GROUND_COLUMNS 		// down
-};
-const MAX_WIDTH_INDEX = GROUND_COLUMNS - 1;
-
-
-class Snake implements Game {
-	private playGround: PlayGround;
-
-	private snake: number[];
+	private readonly snake: number[];
 	private food: number;
 	private direction: number;
 	private snakeHead: number;
 	private next: Function;
 	private timer: number;
+	private isPaused: boolean;
+	private isStoped: boolean;
 
-	constructor(private readonly canvas: Element) {
+	private readonly keyCodeDirectionMaps: Directions;
+	private readonly maxColumnIndex: number;
+
+	constructor(env: Env) {
+
 		this.snake = [2, 1];
 		this.food = 3;
-		this.direction = KEYCODE_DIRECTION_MAP[Keys.Right];
+
 		// this.snakeHead = this.snake[0];
 		this.next = this.move.bind(this);
 		this.timer = 0;
+		this.isPaused = false;
+		this.isStoped = false;
 
-		this.playGround = new PlayGround(canvas);
+		this.config = new Config(env.settings);
+		this.maxColumnIndex = this.config.groundColumns - 1;
+		this.keyCodeDirectionMaps = {
+			37: -1, 				// left
+			38: -this.config.groundColumns, 	// top
+			39: 1, 					// right
+			40: this.config.groundColumns 		// down
+		};
+		this.direction = this.keyCodeDirectionMaps[Keys.Right];
+
+		this.canvas = env.canvas;
+		this.playGround = new PlayGround(this.canvas, this.config);
 	}
 
+	/**
+	 * 资源清理
+	 */
 	public destroy() {
 		document.onkeydown = null;
 		if (this.timer) {
@@ -56,27 +72,58 @@ class Snake implements Game {
 		this.playGround = null;
 
 		$(this.canvas).remove();
+		// this.canvas = null;
 	}
 
-	async start() {
+	public async open() {
 		document.onkeydown = (e: KeyboardEvent) => {
 			let keyCode = (e || <KeyboardEvent>event).keyCode;
 			this.updateMoveStep(keyCode);
 		};
 
-		this.move();
-
 		return Promise.resolve();
 	}
 
-	async stop() {
+	/**
+	 *
+	 */
+	public async start() {
+		this.move();
+	}
+
+	/**
+	 *
+	 */
+	public async pause() {
+		this.isPaused = true;
+	}
+
+	/**
+	 *
+	 */
+	public async continue() {
+		this.isPaused = false;
+		this.start();
+	}
+
+	/**
+	 *
+	 */
+	public async stop() {
+		this.isStoped = true;
+	}
+
+	/**
+	 *
+	 */
+	public async close() {
 		this.destroy();
 		return Promise.resolve();
 	}
 
 
 	private updateMoveStep(keyCode) {
-		let newDirection = KEYCODE_DIRECTION_MAP[keyCode];
+		let newDirection = this.keyCodeDirectionMaps[keyCode];
 
 		if (this.isMoveBack(newDirection)) {
 			return;
@@ -91,8 +138,13 @@ class Snake implements Game {
 	}
 
 	private move() {
+		if (this.isStoped || this.isPaused) {
+			return;
+		}
+
 		this.unshiftNewHead();
 		if (this.isGameOver()) {
+			this.stop();
 			return console.log("GAME OVER");
 		}
 
@@ -104,6 +156,7 @@ class Snake implements Game {
 			let tailGround = this.snake.pop();
 			this.drawTailGround(tailGround);
 		}
+
 		this.setNextMove();
 	}
 
@@ -148,7 +201,7 @@ class Snake implements Game {
 	}
 
 	private randomPosition() {
-		return ~~(Math.random() * CELLS);
+		return ~~(Math.random() * this.config.cells);
 	}
 
 	private isGameOver() {
@@ -168,7 +221,7 @@ class Snake implements Game {
 	}
 
 	private isPopBottom() {
-		return this.snakeHead > CELLS_MAX_LENGTH;
+		return this.snakeHead >= this.config.cells;
 	}
 
 	private isPopRight() {
@@ -177,11 +230,11 @@ class Snake implements Game {
 	}
 
 	private isHeadToNextRowFirst() {
-		return this.snakeHead % GROUND_COLUMNS === 0;
+		return this.snakeHead % this.config.groundColumns === 0;
 	}
 
 	private isMoveRight() {
-		const right = KEYCODE_DIRECTION_MAP[Keys.Right];
+		const right = this.keyCodeDirectionMaps[Keys.Right];
 		return this.direction === right;
 	}
 
@@ -191,14 +244,11 @@ class Snake implements Game {
 	}
 
 	private isHeadToPreviousRowLast() {
-		return this.snakeHead % GROUND_COLUMNS === MAX_WIDTH_INDEX;
+		return this.snakeHead % this.config.groundColumns === this.maxColumnIndex;
 	}
 
 	private isMoveLeft() {
-		const left = KEYCODE_DIRECTION_MAP[Keys.Left];
+		const left = this.keyCodeDirectionMaps[Keys.Left];
 		return this.direction === left;
 	}
 }
-
-
-export default Snake;
