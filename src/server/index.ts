@@ -14,7 +14,7 @@ function boot() {
 	const app = new Koa();
 
 	app.use(staticFiles)
-		// .use(clientLibs)
+		.use(clientLibs)
 		.use(router.routes())
 		.use(router.allowedMethods());
 
