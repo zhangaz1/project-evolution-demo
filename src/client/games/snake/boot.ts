@@ -20,7 +20,9 @@ export default function (
     var canvas = createCanvas();
     $(container).append(canvas);
 
-    var game = new Snake(canvas);
+    var game = new Snake({
+        canvas,
+    });
     return Promise.resolve(game);
 }
 
