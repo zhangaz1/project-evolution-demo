@@ -1,20 +1,4 @@
-import {
-	CELL_WIDTH,
-	CELL_HEIGHT,
-
-	GROUND_COLUMNS,
-	GROUND_ROWS,
-} from './config.js';
-
-
-// 游戏区总单元格数据
-const CELLS = GROUND_COLUMNS * GROUND_ROWS;
-const CELLS_MAX_LENGTH = CELLS - 1;
-
-// cell border and content width height
-const CELL_BORDER_SIZE = 1;
-const CELL_CONTENT_WIDTH = CELL_WIDTH - CELL_BORDER_SIZE * 2;
-const CELL_CONTENT_HEIGHT = CELL_HEIGHT - CELL_BORDER_SIZE * 2;
+import Config from './config.js';
 
 
 /**
@@ -22,10 +6,10 @@ const CELL_CONTENT_HEIGHT = CELL_HEIGHT - CELL_BORDER_SIZE * 2;
  *
  * 		fillCell()：可以绘制指定cell为指定颜色
  */
-class PlayGround {
+export default class PlayGround {
 	private context: Canvas2DContextAttributes;
 
-	constructor(canvas) {
+	constructor(canvas, private config: Config) {
 		this.context = canvas.getContext('2d');
 	}
 
@@ -45,26 +29,19 @@ class PlayGround {
 		(<any>this.context.fillRect)( // function ???
 			x,
 			y,
-			CELL_CONTENT_WIDTH,
-			CELL_CONTENT_HEIGHT
+			this.config.cellContentWidth,
+			this.config.cellContentHeight
 		);
 	}
 
 
 	protected getCellX(cellIndex: number): number {
-		let column = cellIndex % GROUND_COLUMNS;
-		return column * CELL_WIDTH + CELL_BORDER_SIZE;
+		let column = cellIndex % this.config.groundColumns;
+		return column * this.config.cellWidth + this.config.cellBorderWidth;
 	}
 
 	protected getCellY(cellIndex: number): number {
-		let row = ~~(cellIndex / GROUND_COLUMNS);
-		return row * CELL_HEIGHT + CELL_BORDER_SIZE;
+		let row = ~~(cellIndex / this.config.groundColumns);
+		return row * this.config.cellHeight + this.config.cellBorderWidth;
 	}
 }
-
-
-export {
-	PlayGround,
-	CELLS,
-	CELLS_MAX_LENGTH,
-};
