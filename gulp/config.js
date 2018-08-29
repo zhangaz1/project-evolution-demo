@@ -42,6 +42,7 @@ function getFiles(paths) {
 			join(paths.src, 'boot.js')
 		],
 		clientTs: [
+			'!' + join(paths.srcClient, 'libs/**/*.*'),
 			join(paths.srcClient, '**/*.ts')
 		],
 		clientStatics: [

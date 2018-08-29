@@ -1,6 +1,8 @@
 // import * as $ from '@libs/jquery/dist/jquery.js';
 // import * as a$ from './../../libs/jquery/dist/jquery.js';
 // console.log(a$);
+// import * as a$ from '@libs/jquery/dist/jquery.js';
+// console.log('a$:', a$);
 
 import Game from './../../core/models/game.js';
 
