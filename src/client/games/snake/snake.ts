@@ -46,7 +46,7 @@ export default class Snake implements Game {
 		this.food = 3;
 
 		// this.snakeHead = this.snake[0];
-		this.next = this.move.bind(this);
+		this.next = this.run.bind(this);
 		this.timer = 0;
 		this.isPaused = false;
 		this.isStoped = false;
@@ -94,7 +94,8 @@ export default class Snake implements Game {
 	 *
 	 */
 	public async start() {
-		this.move();
+		this.init();
+		this.run();
 	}
 
 	/**
@@ -109,7 +110,7 @@ export default class Snake implements Game {
 	 */
 	public async continue() {
 		this.isPaused = false;
-		this.start();
+		this.run();
 	}
 
 	/**
@@ -143,7 +144,11 @@ export default class Snake implements Game {
 			(this.direction === -newDirection);
 	}
 
-	private move() {
+	private init() {
+
+	}
+
+	private run() {
 		if (this.isStoped || this.isPaused) {
 			return;
 		}
