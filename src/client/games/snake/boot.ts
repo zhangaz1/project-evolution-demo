@@ -28,7 +28,7 @@ export default function (
 }
 
 function createCanvas(config) {
-    return <HTMLCanvasElement>$(`
+    var canvas = $(`
             <canvas id="can"
                 width="${ config.canvasWidth}"
                 height="${config.canvasHeight}"
@@ -36,4 +36,6 @@ function createCanvas(config) {
             </canvas>
         `)
         .get(0);
+
+    return canvas as HTMLCanvasElement;
 }
