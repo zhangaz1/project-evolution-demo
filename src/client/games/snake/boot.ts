@@ -8,7 +8,7 @@ import Snake from './snake.js';
 
 export default function (
     env: Object = {},
-    container: Element = consts.gameGround.get(0)
+    container: HTMLDivElement = <HTMLDivElement>consts.gameGround.get(0)
 ): Promise<Game> {
     const envSettings = {
         cellWidth: 10,
@@ -28,7 +28,7 @@ export default function (
 }
 
 function createCanvas(config) {
-    return $(`
+    return <HTMLCanvasElement>$(`
             <canvas id="can"
                 width="${ config.canvasWidth}"
                 height="${config.canvasHeight}"
