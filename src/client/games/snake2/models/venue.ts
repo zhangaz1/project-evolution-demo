@@ -1,12 +1,32 @@
+import {
+	randomInRange
+} from './../utils/index.js';
+
 import IVenue from './../interfaces/venue.js';
 
 import VenueConfig from './venueConfig.js';
 import Position from './../types/position.js';
+import Point from './point.js';
 
 export default class Venue implements IVenue {
+	public get columns() {
+		return this.venueConfig.columns;
+	}
+
+	public get rows() {
+		return this.venueConfig.rows;
+	}
+
 	constructor(
 		private venueConfig: VenueConfig = new VenueConfig()
 	) { }
+
+	public randomPosition(): Position {
+		return new Point(
+			randomInRange(0, this.columns),
+			randomInRange(0, this.rows),
+		);
+	}
 
 	public isRushOut(position: Position): boolean {
 		return this.isRushOutLeft(position) ||
@@ -38,8 +58,6 @@ export default class Venue implements IVenue {
 	private isRushOutBottom(position) {
 		return position.y >= this.venueConfig.rows;
 	}
-
-
 
 	private fixRushOutLeft(position) {
 		if (this.isRushOutLeft(position)) {
