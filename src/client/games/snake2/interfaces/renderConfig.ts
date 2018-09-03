@@ -1,10 +1,13 @@
 import Colors from './../enums/colors.js';
 
 export default interface RenderConfig {
-	groundColor: Colors;
+	readonly width: number;
+	readonly height: number;
 
 	cellWidth: number;
 	cellHeight: number;
+
+	groundColor: Colors;
 
 	snakeHeadColor: Colors;
 	snakeBodyColor: Colors;
