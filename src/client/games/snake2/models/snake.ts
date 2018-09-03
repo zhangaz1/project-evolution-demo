@@ -8,7 +8,9 @@ import {
 import Point from './point.js';
 import Foods from './foods.js';
 import Food from './food.js';
+import Venue from './venue.js';
 import Score from './score.js';
+import SnakeConfig from './snakeConfig.js';
 import Directions from './../enums/directions.js';
 
 import directionVectorMap from './../constants/directionVectorMap.js';
@@ -20,8 +22,11 @@ export default class Snake implements ISanke {
 	private body: Point[];
 	private step: Vector;
 
-	constructor(config) {
-		this.init(config);
+	constructor(
+		private venue: Venue,
+		private snakeConfig: SnakeConfig = new SnakeConfig(),
+	) {
+		this.init();
 	}
 
 	public get head() {
@@ -53,18 +58,36 @@ export default class Snake implements ISanke {
 	}
 
 
-	private init(config): void {
-		// TODO: to use config
+	private init(): void {
+		if (this.snakeBigThanVenue()) {
+			throw new Error('snake too big or venue too small!');
+		}
 
-		this._head = new Point(0, 2);
-		this.body = [
-			new Point(0, 1),
-			new Point(0, 0),
-		];
-
-		this.step = new Point(1, 0);
-
+		this.step = this.snakeConfig.defaultStep;
 		this._score = new Score();
+
+		this._head = this.venue.randomPosition();
+
+		this.initSnakeBody();
+	}
+
+	private initSnakeBody() {
+		var snakeLength = this.snakeConfig.defaultLength;
+		let tempPosition = this.head;
+		const tempStep = this.step.getOpposite();
+		for (let i = 1; i < snakeLength; i++) {
+			tempPosition = tempPosition.copy()
+				.move(tempStep);
+			this.body.push(tempPosition);
+		}
+	}
+
+	private snakeBigThanVenue() {
+		const snakeConfig = this.snakeConfig;
+		const venue = this.venue;
+
+		return snakeConfig.defaultLength > venue.columns ||
+			snakeConfig.defaultLength > venue.rows;
 	}
 
 	private getAhead(): Point {
