@@ -1,6 +1,6 @@
 import Colors from './../enums/colors.js';
 
-export default interface DrawConfig {
+export default interface RenderConfig {
 	groundColor: Colors;
 
 	cellWidth: number;
