@@ -6,6 +6,10 @@ export default class Point implements IPoint {
 		public y: number = 0,
 	) { }
 
+	public copy() {
+		return Point.clone(this);
+	}
+
 	public static clone(point: Point) {
 		return new Point(point.x, point.y);
 	}
