@@ -7,12 +7,16 @@ import Food from './food.js';
 import directionVectorMap from '../constants/directionVectorMap.js';
 
 export default class Snake implements ISanke {
-	private head: Point;
+	private _head: Point;
 	private body: Point[];
 	private step: Vector;
 
 	constructor(config) {
 		this.init(config);
+	}
+
+	public get head() {
+		return this._head.copy();
 	}
 
 	public move(foods: Foods): Food {
@@ -32,7 +36,7 @@ export default class Snake implements ISanke {
 	private init(config) {
 		// TODO: to use config
 
-		this.head = new Point(0, 2);
+		this._head = new Point(0, 2);
 		this.body = [
 			new Point(0, 1),
 			new Point(0, 0),
@@ -43,17 +47,17 @@ export default class Snake implements ISanke {
 
 	private getAhead() {
 		return new Point(
-			this.head.x + this.step.x,
-			this.head.y + this.step.y
+			this._head.x + this.step.x,
+			this._head.y + this.step.y
 		);
 	}
 
 	private moveHead(newHead) {
-		this.head = Point.clone(newHead);
+		this._head = newHead.copy();
 	}
 
 	private growNeck() {
-		this.body.unshift(this.head);
+		this.body.unshift(this._head);
 	}
 
 	private cutTail() {
