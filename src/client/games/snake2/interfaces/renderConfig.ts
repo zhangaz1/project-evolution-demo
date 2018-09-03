@@ -4,6 +4,8 @@ export default interface RenderConfig {
 	readonly width: number;
 	readonly height: number;
 
+	venueBorderSize: number;
+
 	cellWidth: number;
 	cellHeight: number;
 

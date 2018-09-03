@@ -11,6 +11,8 @@ export default class RenderConfig implements IRenderConfig {
 		return this.venueConfig.rows * this.cellHeight;
 	}
 
+	public venueBorderSize: number = 2;
+
 	public cellWidth: number = 20;
 	public cellHeight: number = 20;
 
