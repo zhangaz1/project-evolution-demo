@@ -10,6 +10,7 @@ export default class Rectangle implements IRectangle {
 
 	public borderSize: number;
 	public borderColor: Colors;
+	public fillColor: Colors;
 
 	constructor({
 		x = 0,
@@ -17,7 +18,8 @@ export default class Rectangle implements IRectangle {
 		width = 0,
 		height = 0,
 		borderSize = 0,
-		borderColor = Colors.Black,
+		borderColor = Colors.White,
+		fillColor = Colors.Black,
 	}) {
 		this.x = x;
 		this.y = y;
@@ -25,5 +27,6 @@ export default class Rectangle implements IRectangle {
 		this.height = height;
 		this.borderSize = borderSize;
 		this.borderColor = borderColor;
+		this.fillColor = fillColor;
 	}
 }
