@@ -5,6 +5,7 @@ export default interface RenderConfig {
 	readonly height: number;
 
 	venueBorderSize: number;
+	venueBorderColor: Colors;
 
 	cellWidth: number;
 	cellHeight: number;

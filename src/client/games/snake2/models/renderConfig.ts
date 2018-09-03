@@ -12,13 +12,14 @@ export default class RenderConfig implements IRenderConfig {
 	}
 
 	public venueBorderSize: number = 2;
+	public venueBorderColor: Colors = Colors.Black;
 
 	public cellWidth: number = 20;
 	public cellHeight: number = 20;
 
 	public cellBorderSize: number = 1;
 
-	public groundColor: Colors = Colors.Black;
+	public groundColor: Colors = Colors.White;
 
 	public snakeHeadColor: Colors = Colors.Red;
 	public snakeBodyColor: Colors = Colors.Green;
