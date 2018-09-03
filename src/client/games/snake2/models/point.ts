@@ -1,4 +1,5 @@
 import IPoint from './../interfaces/point.js';
+import Vector from '../types/vector.js';
 
 export default class Point implements IPoint {
 	constructor(
@@ -6,11 +7,16 @@ export default class Point implements IPoint {
 		public y: number = 0,
 	) { }
 
-	public copy() {
+	public copy(): Point {
 		return Point.clone(this);
 	}
 
-	public static clone(point: Point) {
+	public move(step: Vector): void {
+		this.x += step.x;
+		this.y += step.y;
+	}
+
+	public static clone(point: Point): Point {
 		return new Point(point.x, point.y);
 	}
 }
