@@ -21,5 +21,7 @@ export default class RenderConfig implements IRenderConfig {
 
 	public foodColor: Colors = Colors.Blue;
 
-	constructor(private venueConfig: VenueConfig) { }
+	constructor(
+		private venueConfig: VenueConfig = new VenueConfig()
+	) { }
 }
