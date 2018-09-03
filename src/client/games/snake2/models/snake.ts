@@ -33,7 +33,7 @@ export default class Snake implements ISanke {
 	}
 
 
-	private init(config) {
+	private init(config): void {
 		// TODO: to use config
 
 		this._head = new Point(0, 2);
@@ -45,22 +45,21 @@ export default class Snake implements ISanke {
 		this.step = new Point(1, 0);
 	}
 
-	private getAhead() {
-		return new Point(
-			this._head.x + this.step.x,
-			this._head.y + this.step.y
-		);
+	private getAhead(): Point {
+		const ahead = this._head.copy();
+		ahead.move(this.step);
+		return ahead;
 	}
 
-	private moveHead(newHead) {
+	private moveHead(newHead): void {
 		this._head = newHead.copy();
 	}
 
-	private growNeck() {
+	private growNeck(): void {
 		this.body.unshift(this._head);
 	}
 
-	private cutTail() {
+	private cutTail(): void {
 		this.body.pop();
 	}
 }
