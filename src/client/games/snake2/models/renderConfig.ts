@@ -14,6 +14,8 @@ export default class RenderConfig implements IRenderConfig {
 	public cellWidth: number = 20;
 	public cellHeight: number = 20;
 
+	public cellBorderSize: number = 1;
+
 	public groundColor: Colors = Colors.Black;
 
 	public snakeHeadColor: Colors = Colors.Red;
