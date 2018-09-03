@@ -1,6 +1,6 @@
-import Foods from './foods.js';
-import Food from './food.js';
+import IFoods from './foods.js';
+import IFood from './food.js';
 
 export default interface Snake {
-	move(foods: Foods<Food>);
+	move(foods: IFoods<IFood>): IFood;
 }

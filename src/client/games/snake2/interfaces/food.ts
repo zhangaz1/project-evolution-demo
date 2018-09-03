@@ -1,9 +1,9 @@
 import Colors from './../enums/colors.js';
 
-import Point from './point.js';
+import IPoint from './point.js';
 
 export default interface Food {
-	position: Point;
+	position: IPoint;
 	color: Colors;
 	power: number;
 }

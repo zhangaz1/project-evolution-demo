@@ -1,8 +1,8 @@
-import Food from './food.js';
+import IFood from './food.js';
 
 export default interface Score {
 	score: number;
 	level: number;
 
-	increase(food: Food): void;
+	increase(food: IFood): void;
 }
