@@ -8,6 +8,7 @@ import {
 import Point from './point.js';
 import Foods from './foods.js';
 import Food from './food.js';
+import Score from './score.js';
 import Directions from './../enums/directions.js';
 
 import directionVectorMap from './../constants/directionVectorMap.js';
@@ -15,6 +16,7 @@ import directionVectorMap from './../constants/directionVectorMap.js';
 
 export default class Snake implements ISanke {
 	private _head: Point;
+	private _score: Score;
 	private body: Point[];
 	private step: Vector;
 
@@ -24,6 +26,10 @@ export default class Snake implements ISanke {
 
 	public get head() {
 		return this._head.copy();
+	}
+
+	public get score() {
+		return this._score;
 	}
 
 	public turn(direction: Directions) {
@@ -57,6 +63,8 @@ export default class Snake implements ISanke {
 		];
 
 		this.step = new Point(1, 0);
+
+		this._score = new Score();
 	}
 
 	private getAhead(): Point {
