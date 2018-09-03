@@ -1,5 +1,5 @@
-import IPoint from './../interfaces/point.js';
+import Point from './../interfaces/point.js';
 
-type Vector = IPoint;
+type Vector = Point;
 
 export default Vector;
