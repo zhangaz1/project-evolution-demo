@@ -8,7 +8,7 @@ export default class Foods implements IFoods<Food> {
 		private foods: Food[] = []
 	) { }
 
-	public eat(position: Point) {
+	public eat(position: Point): Food {
 		return this.foods[0];
 	}
 }
