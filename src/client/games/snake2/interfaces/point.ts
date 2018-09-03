@@ -1,4 +1,4 @@
-import Vector from "../types/vector";
+import Vector from './../types/vector.js';
 
 export default interface Point {
 	x: number;
@@ -6,4 +6,8 @@ export default interface Point {
 
 	copy(): Point;
 	move(step: Vector): Point;
+
+	isEqual(anotherPoint: Point): boolean;
+	isBasePoint():boolean;
+	isOpposite(antherPoint: Point): boolean;
 }

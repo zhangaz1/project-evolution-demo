@@ -18,6 +18,24 @@ export default class Point implements IPoint {
 		return this;
 	}
 
+	public isEqual(anotherPoint: Point): boolean {
+		return this.x === anotherPoint.x &&
+			this.y === anotherPoint.y;
+	}
+
+	public isBasePoint(): boolean {
+		return this.isEqual(Point.basePoint);
+	}
+
+	public isOpposite(anotherPoint: Point): boolean {
+		return this.copy()
+			.move(anotherPoint)
+			.isBasePoint();
+	}
+
+
+	public static basePoint = new Point();
+
 	public static clone(point: Point): Point {
 		return new Point(point.x, point.y);
 	}
