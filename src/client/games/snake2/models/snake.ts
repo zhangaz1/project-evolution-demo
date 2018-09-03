@@ -46,9 +46,9 @@ export default class Snake implements ISanke {
 	}
 
 	private getAhead(): Point {
-		const ahead = this._head.copy();
-		ahead.move(this.step);
-		return ahead;
+		return this._head
+			.copy()
+			.move(this.step);
 	}
 
 	private moveHead(newHead): void {

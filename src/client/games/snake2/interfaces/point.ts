@@ -5,5 +5,5 @@ export default interface Point {
 	y: number;
 
 	copy(): Point;
-	move(step: Vector): void;
+	move(step: Vector): Point;
 }

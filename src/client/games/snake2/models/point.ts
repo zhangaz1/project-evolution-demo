@@ -11,9 +11,11 @@ export default class Point implements IPoint {
 		return Point.clone(this);
 	}
 
-	public move(step: Vector): void {
+	public move(step: Vector): Point {
 		this.x += step.x;
 		this.y += step.y;
+
+		return this;
 	}
 
 	public static clone(point: Point): Point {
