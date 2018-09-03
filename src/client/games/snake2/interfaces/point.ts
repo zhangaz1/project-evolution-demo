@@ -1,9 +1,7 @@
+import ICoordinate from './coordinate.js';
 import Vector from './../types/vector.js';
 
-export default interface Point {
-	x: number;
-	y: number;
-
+export default interface Point extends ICoordinate {
 	copy(): Point;
 	move(step: Vector): Point;
 
