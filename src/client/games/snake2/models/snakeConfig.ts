@@ -9,7 +9,5 @@ export default class SnakeConfig implements ISnakeConfig {
 	public defaultLength: number = 3;
 	public defaultStep: Vector = new Point(1, 0);
 
-	constructor(
-		public venueConfig: VenueConfig = new VenueConfig()
-	) { }
+	constructor() { }
 }
