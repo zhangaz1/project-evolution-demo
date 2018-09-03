@@ -7,7 +7,9 @@ export default interface Point {
 	copy(): Point;
 	move(step: Vector): Point;
 
+	getOpposite(): Point;
+
 	isEqual(anotherPoint: Point): boolean;
-	isBasePoint():boolean;
+	isBasePoint(): boolean;
 	isOpposite(antherPoint: Point): boolean;
 }

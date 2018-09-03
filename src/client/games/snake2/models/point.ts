@@ -18,6 +18,13 @@ export default class Point implements IPoint {
 		return this;
 	}
 
+	public getOpposite(): Point {
+		const point = this.copy();
+		point.x *= -1;
+		point.y *= -1;
+		return point;
+	}
+
 	public isEqual(anotherPoint: Point): boolean {
 		return this.x === anotherPoint.x &&
 			this.y === anotherPoint.y;
