@@ -5,4 +5,8 @@ export default class Point implements IPoint {
 		public x: number = 0,
 		public y: number = 0,
 	) { }
+
+	public static clone(point: Point) {
+		return new Point(point.x, point.y);
+	}
 }
