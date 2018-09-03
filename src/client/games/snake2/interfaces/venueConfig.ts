@@ -1,4 +1,4 @@
 export default interface VenueConfig {
-	width: number;
-	height: number;
+	columns: number;
+	rows: number;
 }
