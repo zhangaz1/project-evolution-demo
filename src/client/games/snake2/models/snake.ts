@@ -1,10 +1,17 @@
 import ISanke from './../interfaces/snake.js';
 import Vector from './../types/vector.js';
 
+import {
+	isDirectionOpposite
+} from './../utils/index.js';
+
 import Point from './point.js';
 import Foods from './foods.js';
 import Food from './food.js';
-import directionVectorMap from '../constants/directionVectorMap.js';
+import Directions from './../enums/directions.js';
+
+import directionVectorMap from './../constants/directionVectorMap.js';
+
 
 export default class Snake implements ISanke {
 	private _head: Point;
@@ -17,6 +24,13 @@ export default class Snake implements ISanke {
 
 	public get head() {
 		return this._head.copy();
+	}
+
+	public turn(direction: Directions) {
+		const newStep = directionVectorMap[direction];
+		if (!this.step.isOpposite(newStep)) {
+			this.step = newStep;
+		}
 	}
 
 	public move(foods: Foods): Food {
