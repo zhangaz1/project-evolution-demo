@@ -1,4 +1,4 @@
-export default function random(from: number, to: number) {
+export function randomInRange(from: number, to: number) {
 	const range = to - from;
 
 	let random = Math.random();
