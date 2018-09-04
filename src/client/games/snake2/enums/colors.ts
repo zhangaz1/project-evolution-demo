@@ -5,6 +5,7 @@ const enum Colors {
 	Green = 'green',
 	Black = 'black',
 	White = 'white',
+	Gray = 'gray',
 
 	None = 'none',
 }
