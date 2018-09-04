@@ -5,7 +5,7 @@ import Food from './food.js';
 
 export default class Foods implements IFoods<Food> {
 	constructor(
-		private foods: Food[] = []
+		public foods: Food[] = []
 	) { }
 
 	public eat(position: Point): Food {
