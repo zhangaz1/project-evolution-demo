@@ -76,9 +76,10 @@ export default class Snake implements ISanke {
 	}
 
 	private initSnakeBody() {
-		var snakeLength = this.snakeConfig.defaultLength;
-		let tempPosition = this.head;
+		this._body = [];
+		const snakeLength = this.snakeConfig.defaultLength;
 		const tempStep = this.step.getOpposite();
+		let tempPosition = this.head;
 		for (let i = 1; i < snakeLength; i++) {
 			tempPosition = tempPosition.copy()
 				.move(tempStep);

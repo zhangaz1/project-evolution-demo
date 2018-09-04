@@ -12,7 +12,15 @@ export default class RenderConfig implements IRenderConfig {
 		return this.venueConfig.rows * this.cellHeight;
 	}
 
-	public venueBorderSize: number = 2;
+	public get canvasWidth() {
+		return this.width + this.venueBorderSize * 2;
+	}
+
+	public get canvasHeight() {
+		return this.height + this.venueBorderSize * 2;
+	}
+
+	public venueBorderSize: number = 10;
 	public venueBorderColor: Colors = Colors.Black;
 
 	public cellWidth: number = 20;
@@ -20,7 +28,7 @@ export default class RenderConfig implements IRenderConfig {
 
 	public cellBorderSize: number = 1;
 
-	public groundColor: Colors = Colors.White;
+	public groundColor: Colors = Colors.Gray;
 
 	public snakeHeadColor: Colors = Colors.Red;
 	public snakeBodyColor: Colors = Colors.Green;

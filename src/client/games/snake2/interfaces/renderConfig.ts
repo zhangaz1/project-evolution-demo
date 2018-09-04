@@ -4,6 +4,9 @@ export default interface RenderConfig {
 	readonly width: number;
 	readonly height: number;
 
+	readonly canvasWidth: number;
+	readonly canvasHeight: number;
+
 	venueBorderSize: number;
 	venueBorderColor: Colors;
 

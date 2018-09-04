@@ -63,8 +63,10 @@ export default class RenderCanvas implements IRender {
 		const venueBorderSize = config.venueBorderSize;
 
 		return new Rectangle({
-			width: config.width * venueBorderSize * 2,
-			height: config.height + venueBorderSize * 2,
+			x: venueBorderSize / 2,
+			y: venueBorderSize / 2,
+			width: config.width + venueBorderSize,
+			height: config.height + venueBorderSize,
 			borderSize: venueBorderSize,
 			borderColor: config.venueBorderColor,
 			fillColor: config.groundColor,
@@ -93,6 +95,7 @@ export default class RenderCanvas implements IRender {
 			borderColor: cellParamsObj.borderColor,
 		});
 	}
+
 
 	private drawRectangle(rectangle: Rectangle) {
 		const context = this.context;
