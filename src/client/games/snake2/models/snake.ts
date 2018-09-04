@@ -19,7 +19,7 @@ import directionVectorMap from './../constants/directionVectorMap.js';
 export default class Snake implements ISanke {
 	private _head: Point;
 	private _score: Score;
-	private body: Point[];
+	private _body: Point[];
 	private step: Vector;
 
 	constructor(
@@ -31,6 +31,10 @@ export default class Snake implements ISanke {
 
 	public get head() {
 		return this._head.copy();
+	}
+
+	public get body() {
+		return [].concat(this._body); // copy
 	}
 
 	public get score() {
@@ -78,7 +82,7 @@ export default class Snake implements ISanke {
 		for (let i = 1; i < snakeLength; i++) {
 			tempPosition = tempPosition.copy()
 				.move(tempStep);
-			this.body.push(tempPosition);
+			this._body.push(tempPosition);
 		}
 	}
 
@@ -101,10 +105,10 @@ export default class Snake implements ISanke {
 	}
 
 	private growNeck(): void {
-		this.body.unshift(this._head);
+		this._body.unshift(this._head);
 	}
 
 	private cutTail(): void {
-		this.body.pop();
+		this._body.pop();
 	}
 }
