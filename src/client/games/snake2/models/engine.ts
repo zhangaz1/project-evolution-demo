@@ -14,6 +14,7 @@ export default class Engine implements IEngine {
 	public open(): Promise<any> {
 		this.render.renderVenue();
 		this.render.renderFoods(this.foods);
+		this.render.renderSnake(this.snake);
 		return Promise.resolve();
 	}
 
