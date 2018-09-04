@@ -3,11 +3,13 @@ import Snake from './snake.js';
 import Venue from './venue.js';
 import Foods from './foods.js';
 import IRender from './../interfaces/render.js';
+import EngineConfig from './engineConfig.js';
 
 export { Engine };
 export default class Engine implements IEngine {
 	private isPaused: boolean;
 	private isStoped: boolean;
+	private isStarted: boolean;
 
 	private timer = 0;
 
@@ -16,6 +18,7 @@ export default class Engine implements IEngine {
 		private snake: Snake,
 		private foods: Foods,
 		private render: IRender,
+		private engineConfig: EngineConfig = new EngineConfig(),
 	) { }
 
 	public async open() {
@@ -29,8 +32,9 @@ export default class Engine implements IEngine {
 
 
 	public async start() {
-		if (this.timer === 0) {
-			this.timer = setInterval(this.run.bind(this), 300);
+		if (!this.isStarted) {
+			this.isStarted = true;
+			this.run();
 		}
 	}
 
@@ -59,7 +63,7 @@ export default class Engine implements IEngine {
 		}
 
 		this.move();
-		setTimeout(this.run.bind(this), 100);
+		setTimeout(this.run.bind(this), this.engineConfig.interval);
 	}
 
 	private move() {
