@@ -8,6 +8,7 @@ import VenueConfig from './venueConfig.js';
 import Position from './../types/position.js';
 import Point from './point.js';
 
+export { Venue };
 export default class Venue implements IVenue {
 	public get columns() {
 		return this.venueConfig.columns;

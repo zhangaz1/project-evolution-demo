@@ -18,6 +18,7 @@ class CellParamsObj {
 	borderColor?: Colors = null;
 }
 
+export { RenderCanvas };
 export default class RenderCanvas implements IRender {
 	private readonly context: CanvasRenderingContext2D;
 

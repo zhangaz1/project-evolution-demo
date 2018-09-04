@@ -2,6 +2,7 @@ import Colors from './../enums/colors.js';
 import IRenderConfig from './../interfaces/renderConfig.js';
 import VenueConfig from './venueConfig.js';
 
+export { RenderConfig };
 export default class RenderConfig implements IRenderConfig {
 	public get width() {
 		return this.venueConfig.columns * this.cellWidth;

@@ -15,7 +15,7 @@ import Directions from './../enums/directions.js';
 
 import directionVectorMap from './../constants/directionVectorMap.js';
 
-
+export { Snake };
 export default class Snake implements ISanke {
 	private _head: Point;
 	private _score: Score;
@@ -23,7 +23,7 @@ export default class Snake implements ISanke {
 	private step: Vector;
 
 	constructor(
-		private venue: Venue,
+		private venue: Venue = new Venue(),
 		private snakeConfig: SnakeConfig = new SnakeConfig(),
 	) {
 		this.init();
