@@ -1,14 +1,6 @@
 import Game from './../../core/models/game.js';
 import consts from './../../configs/consts.js';
 
-
-// import Venue from './models/venue.js';
-// import Score from './models/score.js';
-// import Snake from './models/snake.js';
-// import RenderCanvas from './models/renderCanvas.js';
-// import RenderConfig from './models/renderConfig.js';
-// import Engine from './models/engine.js';
-
 import {
 	Venue,
 	Score,
@@ -17,6 +9,7 @@ import {
 	RenderConfig,
 	Engine,
 } from './models/index.js';
+import Foods from './models/foods.js';
 
 export default function (
 	env: object = {},
@@ -30,8 +23,9 @@ export default function (
 	const renderCanvas = new RenderCanvas(canvas, renderConfig);
 
 	const snake = new Snake(venue);
+	const foods = new Foods(venue);
 
-	const game = new Engine(snake, renderCanvas);
+	const game = new Engine(snake, foods, renderCanvas);
 
 	$(container).append(canvas);
 	return Promise.resolve(game);

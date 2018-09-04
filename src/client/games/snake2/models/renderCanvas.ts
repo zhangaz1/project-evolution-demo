@@ -5,17 +5,18 @@ import Colors from './../enums/colors.js';
 import Cell from './../types/cell.js';
 
 import Foods from './foods.js';
-import Food from './food.js';
 import Snake from './snake.js';
 import Score from './score.js';
 import Rectangle from './rectangle.js';
 import RenderConfig from './renderConfig.js';
 
 class CellParamsObj {
-	cell: Cell;
-	fillColor?: Colors = null;
-	borderSize?: number = null;
-	borderColor?: Colors = null;
+	constructor(
+		public cell: Cell,
+		public fillColor: Colors = null,
+		public borderSize: number = null,
+		public borderColor: Colors = null,
+	) { }
 }
 
 export { RenderCanvas };
@@ -35,23 +36,32 @@ export default class RenderCanvas implements IRender {
 	}
 
 	public renderFoods(foods: Foods): void {
-		foods.foods
-			.forEach(food => this.renderCell({
-				cell: food.position,
-				fillColor: food.color,
-			}));
+		foods.foods.forEach(this.renderFood.bind(this));
+	}
+
+	private renderFood(food) {
+		this.renderCell(
+			new CellParamsObj(
+				food.position,
+				food.color,
+			)
+		)
 	}
 
 	public renderSnake(snake: Snake): void {
-		this.renderCell({
-			cell: snake.head,
-			fillColor: this.renderConfig.snakeHeadColor,
-		});
+		this.renderCell(new CellParamsObj(
+			snake.head,
+			this.renderConfig.snakeHeadColor,
+		));
 
-		snake.body.forEach(cell => this.renderCell({
-			cell,
-			fillColor: this.renderConfig.snakeBodyColor,
-		}));
+		snake.body.forEach(
+			cell => this.renderCell(
+				new CellParamsObj(
+					cell,
+					this.renderConfig.snakeBodyColor,
+				)
+			)
+		);
 	}
 
 	public renderScore(score: Score): void {
@@ -65,8 +75,8 @@ export default class RenderCanvas implements IRender {
 		return new Rectangle({
 			x: venueBorderSize / 2,
 			y: venueBorderSize / 2,
-			width: config.width + venueBorderSize,
-			height: config.height + venueBorderSize,
+			width: config.width,
+			height: config.height,
 			borderSize: venueBorderSize,
 			borderColor: config.venueBorderColor,
 			fillColor: config.groundColor,
@@ -80,19 +90,21 @@ export default class RenderCanvas implements IRender {
 
 	private getCellRectangle(cellParamsObj: CellParamsObj): Rectangle {
 		const config = this.renderConfig;
+		const venueBorderSize = config.venueBorderSize;
 		const borderSize = cellParamsObj.borderSize !== null ? cellParamsObj.borderSize : config.cellBorderSize;
+		const borderColor = cellParamsObj.borderColor !== null ? cellParamsObj.borderColor : config.cellBorderColor;
 		const cellWidth = config.cellWidth;
 		const cellHeight = config.cellHeight;
 		const cell = cellParamsObj.cell;
 
 		return new Rectangle({
-			x: cell.x * cellWidth + borderSize,
-			y: cell.y * cellHeight + borderSize,
-			width: cellWidth - borderSize * 2,
-			height: cellHeight - borderSize * 2,
+			x: cell.x * cellWidth + borderSize / 2 + venueBorderSize / 2,
+			y: cell.y * cellHeight + borderSize / 2 + venueBorderSize / 2,
+			width: cellWidth - borderSize,
+			height: cellHeight - borderSize,
 			fillColor: cellParamsObj.fillColor,
 			borderSize,
-			borderColor: cellParamsObj.borderColor,
+			borderColor,
 		});
 	}
 

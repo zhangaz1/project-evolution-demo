@@ -14,6 +14,7 @@ export default interface RenderConfig {
 	cellHeight: number;
 
 	cellBorderSize: number;
+	cellBorderColor: Colors;
 
 	groundColor: Colors;
 

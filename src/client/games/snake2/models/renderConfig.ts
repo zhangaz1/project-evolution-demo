@@ -13,20 +13,21 @@ export default class RenderConfig implements IRenderConfig {
 	}
 
 	public get canvasWidth() {
-		return this.width + this.venueBorderSize * 2;
+		return this.width + this.venueBorderSize;
 	}
 
 	public get canvasHeight() {
-		return this.height + this.venueBorderSize * 2;
+		return this.height + this.venueBorderSize;
 	}
 
-	public venueBorderSize: number = 10;
-	public venueBorderColor: Colors = Colors.Black;
+	public venueBorderSize: number = 4;
+	public venueBorderColor: Colors = Colors.Blue;
 
 	public cellWidth: number = 20;
 	public cellHeight: number = 20;
 
-	public cellBorderSize: number = 1;
+	public cellBorderSize: number = 2;
+	public cellBorderColor: Colors = Colors.Red;
 
 	public groundColor: Colors = Colors.Gray;
 
