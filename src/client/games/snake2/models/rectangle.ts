@@ -18,8 +18,8 @@ export default class Rectangle implements IRectangle {
 		width = 0,
 		height = 0,
 		borderSize = 0,
-		borderColor = Colors.White,
-		fillColor = Colors.Black,
+		borderColor = Colors.None,
+		fillColor = Colors.None,
 	}) {
 		this.x = x;
 		this.y = y;
