@@ -33,6 +33,17 @@ export default class Snake implements ISanke {
 		return this._head.copy();
 	}
 
+	public get neck() {
+		return this._body[0]
+			.copy();
+	}
+
+	public get tail() {
+		const last = this._body.length - 1;
+		return this._body[last]
+			.copy();
+	}
+
 	public get body() {
 		return [].concat(this._body); // copy
 	}

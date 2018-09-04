@@ -1,5 +1,6 @@
 import IEngine from './../interfaces/engine.js';
 import Snake from './snake.js';
+import Venue from './venue.js';
 import Foods from './foods.js';
 import IRender from './../interfaces/render.js';
 
@@ -11,6 +12,7 @@ export default class Engine implements IEngine {
 	private timer = 0;
 
 	constructor(
+		private venue: Venue,
 		private snake: Snake,
 		private foods: Foods,
 		private render: IRender,
@@ -28,7 +30,7 @@ export default class Engine implements IEngine {
 
 	public async start() {
 		if (this.timer === 0) {
-			this.timer = setInterval(this.run.bind(this), 100);
+			this.timer = setInterval(this.run.bind(this), 300);
 		}
 	}
 
@@ -61,13 +63,22 @@ export default class Engine implements IEngine {
 	}
 
 	private move() {
-		const food = this.snake.move(this.foods);
+		const snake = this.snake;
+		const oldTail = snake.tail;
+		const food = snake.move(this.foods);
+		const isRushOut = this.venue.isRushOut(snake.head);
+		if (isRushOut) {
+			this.isStoped = true;
+			console.log('game over');
+			return;
+		}
+
 		if (food) {
-			this.snake.score.increase(food);
+			snake.score.increase(food);
 			this.renderFoods();
 			this.renderScore();
 		}
-		this.renderSnake();
+		this.renderMovingSnake(snake.head, snake.neck, oldTail);
 	}
 
 	private destroy() { }
@@ -86,5 +97,12 @@ export default class Engine implements IEngine {
 
 	private renderVenue() {
 		this.render.renderVenue();
+	}
+
+	private renderMovingSnake(head, neck, tail) {
+		const render = this.render;
+		render.renderSnakeHead(head);
+		render.renderSnakeNeck(neck);
+		render.revertSnakeTail(tail);
 	}
 }

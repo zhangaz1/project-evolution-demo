@@ -36,7 +36,9 @@ export default class RenderCanvas implements IRender {
 	}
 
 	public renderFoods(foods: Foods): void {
-		foods.foods.forEach(this.renderFood.bind(this));
+		foods.foods.forEach(
+			this.renderFood.bind(this)
+		);
 	}
 
 	private renderFood(food) {
@@ -49,17 +51,18 @@ export default class RenderCanvas implements IRender {
 	}
 
 	public renderSnake(snake: Snake): void {
-		this.renderCell(new CellParamsObj(
-			snake.head,
-			this.renderConfig.snakeHeadColor,
-		));
+		this.renderSnakeHead(snake.head);
 
 		snake.body.forEach(
-			cell => this.renderCell(
-				new CellParamsObj(
-					cell,
-					this.renderConfig.snakeBodyColor,
-				)
+			this.renderBodyCell.bind(this)
+		);
+	}
+
+	private renderBodyCell(bodyCell: Cell) {
+		this.renderCell(
+			new CellParamsObj(
+				bodyCell,
+				this.renderConfig.snakeBodyColor,
 			)
 		);
 	}
@@ -67,6 +70,26 @@ export default class RenderCanvas implements IRender {
 	public renderScore(score: Score): void {
 		console.log(JSON.stringify(score, null, 4));
 	}
+
+	public renderSnakeHead(head: Cell): void {
+		this.renderCell(new CellParamsObj(
+			head,
+			this.renderConfig.snakeHeadColor,
+		));
+	}
+
+	public renderSnakeNeck(neck: Cell): void {
+		this.renderBodyCell(neck);
+	}
+
+	public revertSnakeTail(tail: Cell): void {
+		this.renderCell(new CellParamsObj(
+			tail,
+			this.renderConfig.groundColor,
+			0,
+		));
+	}
+
 
 	private getVenueRectangle() {
 		const config = this.renderConfig;

@@ -25,7 +25,7 @@ export default function (
 	const snake = new Snake(venue);
 	const foods = new Foods(venue);
 
-	const game = new Engine(snake, foods, renderCanvas);
+	const game = new Engine(venue, snake, foods, renderCanvas);
 
 	$(container).append(canvas);
 	return Promise.resolve(game);
