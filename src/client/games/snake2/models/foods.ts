@@ -16,7 +16,9 @@ export default class Foods implements IFoods<Food> {
 	}
 
 	public eat(position: Point): Food {
-		return this.foods[0];
+		return this.foods.find(
+			food => food.position.isEqual(position)
+		);
 	}
 
 	private init(foodsConfig) {

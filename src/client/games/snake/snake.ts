@@ -86,8 +86,6 @@ export default class Snake implements Game {
 			let keyCode = (e || <KeyboardEvent>event).keyCode;
 			this.updateMoveStep(keyCode);
 		};
-
-		return Promise.resolve();
 	}
 
 	/**
@@ -125,7 +123,6 @@ export default class Snake implements Game {
 	 */
 	public async close() {
 		this.destroy();
-		return Promise.resolve();
 	}
 
 
