@@ -1,7 +1,9 @@
+const fileFullPath = __filename;
+
 const del = require('del');
 const distFilePattern = path.join(config.paths.dist, '**/*');
 
 gulp.task(
-	getTaskName(path.basename(__filename)),
+	getTaskName(fileFullPath),
 	cb => del(distFilePattern, cb)
 );

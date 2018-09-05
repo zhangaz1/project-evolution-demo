@@ -1,5 +1,5 @@
 interface Env {
-	canvas: Element,
+	canvas: HTMLCanvasElement,
 	settings?: any,
 }
 
