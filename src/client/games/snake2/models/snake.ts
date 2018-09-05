@@ -88,6 +88,12 @@ export default class Snake implements ISnake {
 		this.growNeck();
 		var newHead = this.getAhead();
 
+		const isCollideSelf = this.isCollideSelf(newHead);
+		if (isCollideSelf) {
+			this._isDied = true;
+			return;
+		}
+
 		const isRushOut = this.venue.isRushOut(newHead);
 		if (isRushOut) {
 			switch (this.snakeConfig.gameMode) {
@@ -111,6 +117,12 @@ export default class Snake implements ISnake {
 		}
 
 		return food;
+	}
+
+	private isCollideSelf(newHead: IPoint): boolean {
+		return !!this._body.find(
+			cell => cell.isEqual(newHead)
+		);
 	}
 
 
