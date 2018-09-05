@@ -1,6 +1,7 @@
-import ISanke from './../interfaces/snake.js';
+import ISanke from '../interfaces/iSnake.js';
 import Vector from './../types/vector.js';
 
+import GameModes from './../enums/gameModes.js';
 import {
 	isDirectionOpposite
 } from './../utils/index.js';
@@ -17,6 +18,7 @@ import directionVectorMap from './../constants/directionVectorMap.js';
 
 export { Snake };
 export default class Snake implements ISanke {
+	private _isDied: boolean = false;
 	private _head: Point;
 	private _score: Score;
 	private _body: Point[];
@@ -52,6 +54,10 @@ export default class Snake implements ISanke {
 		return this._score;
 	}
 
+	public get isDied() {
+		return this._isDied;
+	}
+
 	public turn(direction: Directions) {
 		const newStep = directionVectorMap[direction];
 		if (!this.step.isOpposite(newStep)) {
@@ -60,8 +66,28 @@ export default class Snake implements ISanke {
 	}
 
 	public move(foods: Foods): Food {
+		if (this._isDied) {
+			return;
+		}
+
 		this.growNeck();
 		var newHead = this.getAhead();
+
+		const isRushOut = this.venue.isRushOut(this.head);
+		if (isRushOut) {
+			switch (this.snakeConfig.gameMode) {
+				case GameModes.Obstacles:
+				case GameModes.Classic:
+					this._isDied = true;
+					return;
+				case GameModes.NoWalls:
+					this.venue.fixRushOut(newHead)
+					break;
+				default:
+					break;
+			}
+		}
+
 		this.moveHead(newHead);
 
 		var food = foods.eat(newHead);

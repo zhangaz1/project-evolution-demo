@@ -1,10 +1,11 @@
-import IFoods from './../interfaces/foods.js';
+import IFoods from '../interfaces/iFoods.js';
 
 import Point from './point.js';
 import Food from './food.js';
 import Venue from './venue.js';
 import FoodsConfig from './foodsConfig.js';
 
+export { Foods };
 export default class Foods implements IFoods<Food> {
 	readonly foods: Food[] = [];
 

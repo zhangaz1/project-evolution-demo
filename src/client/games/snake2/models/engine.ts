@@ -1,8 +1,8 @@
-import IEngine from './../interfaces/engine.js';
+import IEngine from '../interfaces/iEngine.js';
 import Snake from './snake.js';
 import Venue from './venue.js';
 import Foods from './foods.js';
-import IRender from './../interfaces/render.js';
+import IRender from '../interfaces/iRender.js';
 import EngineConfig from './engineConfig.js';
 
 export { Engine };
@@ -44,6 +44,7 @@ export default class Engine implements IEngine {
 
 	public async continue() {
 		this.isPaused = false;
+		this.run();
 	}
 
 	public async stop() {
@@ -70,9 +71,8 @@ export default class Engine implements IEngine {
 		const snake = this.snake;
 		const oldTail = snake.tail;
 		const food = snake.move(this.foods);
-		const isRushOut = this.venue.isRushOut(snake.head);
-		if (isRushOut) {
-			this.isStoped = true;
+
+		if (this.snake.isDied) {
 			console.log('game over');
 			return;
 		}

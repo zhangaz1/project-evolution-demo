@@ -1,4 +1,4 @@
-import IRender from './../interfaces/render.js';
+import IRender from '../interfaces/iRender.js';
 
 import Colors from './../enums/colors.js';
 

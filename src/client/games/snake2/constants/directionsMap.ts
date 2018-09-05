@@ -1,10 +1,10 @@
-import DirectionMap from './../interfaces/directionMap.js';
+import IDirectionMap from '../interfaces/iDirectionMap.js';
 
 import KeyCodes from './../enums/keyCodes.js';
 import Directions from './../enums/directions.js';
 import Vector from './../models/point.js';
 
-const DirectionsMap: DirectionMap[] = [
+const DirectionsMap: IDirectionMap[] = [
 	{
 		keyCode: KeyCodes.Left,
 		direction: Directions.Left,

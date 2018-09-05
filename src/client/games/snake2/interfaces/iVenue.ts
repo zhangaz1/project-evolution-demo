@@ -1,6 +1,6 @@
-import Position from './../types/position.js';
+import Position from '../types/position.js';
 
-export default interface Venue {
+export default interface IVenue {
 	readonly columns: number;
 	readonly rows: number;
 

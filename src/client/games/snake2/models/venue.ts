@@ -2,7 +2,7 @@ import {
 	randomInRange
 } from './../utils/index.js';
 
-import IVenue from './../interfaces/venue.js';
+import IVenue from '../interfaces/iVenue.js';
 
 import VenueConfig from './venueConfig.js';
 import Position from './../types/position.js';

@@ -1,9 +1,8 @@
-import IScore from './../interfaces/score.js';
+import IScore from '../interfaces/iScore.js';
 
 import Food from './food.js';
 
 export { Score };
-
 export default class Score implements IScore {
 	constructor(
 		public score: number = 0,

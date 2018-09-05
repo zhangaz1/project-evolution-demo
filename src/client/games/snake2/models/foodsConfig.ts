@@ -1,6 +1,6 @@
-import IFoodsConfig from './../interfaces/foodsConfig.js';
+import IFoodsConfig from '../interfaces/iFoodsConfig.js';
 
-export default class FoodsConfig {
+export default class FoodsConfig implements IFoodsConfig {
 	constructor(
 		public foods: number = 3
 	) { }

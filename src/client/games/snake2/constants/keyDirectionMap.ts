@@ -1,4 +1,4 @@
-import IKeyDirectionMap from './../interfaces/keyDirectionMap.js';
+import IKeyDirectionMap from '../interfaces/iKeyDirectionMap.js';
 import DirectionsMap from './directionsMap.js';
 
 const keyDirectionMap: IKeyDirectionMap = {};

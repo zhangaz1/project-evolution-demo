@@ -1,4 +1,4 @@
-export default interface Engine {
+export default interface IEngine {
 	open(): Promise<any>;
 	start(): Promise<any>;
 	pause(): Promise<any>;

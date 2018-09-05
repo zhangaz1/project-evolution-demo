@@ -1,26 +1,25 @@
 import Colors from './../enums/colors.js';
-import IRenderConfig from './../interfaces/renderConfig.js';
+import IRenderConfig from '../interfaces/iRenderConfig.js';
 import VenueConfig from './venueConfig.js';
 
 export { RenderConfig };
 export default class RenderConfig implements IRenderConfig {
-	public venueBorderSize: number = 4;
-	public venueBorderColor: Colors = Colors.Black;
-
-	public cellWidth: number = 20;
-	public cellHeight: number = 20;
-
-	public cellBorderSize: number = 2;
-	public cellBorderColor: Colors = Colors.Gray;
-
-	public groundColor: Colors = Colors.White;
-
-	public snakeHeadColor: Colors = Colors.Red;
-	public snakeBodyColor: Colors = Colors.Green;
-
-	public foodColor: Colors = Colors.Blue;
-
 	constructor(
+		public venueBorderSize: number = 4,
+		public venueBorderColor: Colors = Colors.Black,
+
+		public cellWidth: number = 20,
+		public cellHeight: number = 20,
+
+		public cellBorderSize: number = 2,
+		public cellBorderColor: Colors = Colors.Gray,
+
+		public groundColor: Colors = Colors.White,
+
+		public snakeHeadColor: Colors = Colors.Red,
+		public snakeBodyColor: Colors = Colors.Green,
+
+		public foodColor: Colors = Colors.Blue,
 		private venueConfig: VenueConfig = new VenueConfig()
 	) { }
 

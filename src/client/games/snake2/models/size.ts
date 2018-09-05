@@ -1,5 +1,6 @@
-import ISize from './../interfaces/size.js';
+import ISize from '../interfaces/iSize.js';
 
+export { Size };
 export default class Size implements ISize {
 	constructor(
 		public width: number = 0,

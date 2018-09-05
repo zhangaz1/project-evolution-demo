@@ -1,6 +1,7 @@
-import IPoint from './../interfaces/point.js';
+import IPoint from '../interfaces/iPoint.js';
 import Vector from '../types/vector.js';
 
+export { Point };
 export default class Point implements IPoint {
 	constructor(
 		public x: number = 0,
