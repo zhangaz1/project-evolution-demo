@@ -17,6 +17,7 @@ import {
 
 import {
 	Venue,
+	Score,
 	Foods,
 	FoodsConfig,
 	Snake,
@@ -45,8 +46,9 @@ export default class Engine implements IEngine {
 		foodsConfig: IFoodsConfig = new FoodsConfig(),
 	) {
 		const venue = new Venue(venueConfig);
-		this.snake = new Snake(venue, snakeConfig);
-		this.foods = new Foods(venue, foodsConfig);
+		const score = new Score();
+		this.snake = new Snake(score, venue, snakeConfig);
+		this.foods = new Foods(score, venue, foodsConfig);
 		this.actionHandler = new ActionHandler(this.snake, <IEngine>this);
 	}
 
@@ -130,7 +132,7 @@ export default class Engine implements IEngine {
 		}
 
 		if (food) {
-			snake.score.increase(food);
+			snake.score.increaseScore(food);
 			this.renderFoods();
 			this.renderScore();
 		}

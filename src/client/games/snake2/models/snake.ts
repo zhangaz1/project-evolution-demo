@@ -40,9 +40,11 @@ export default class Snake implements ISnake {
 	private step: IVector;
 
 	constructor(
+		score: IScore,
 		private venue: IVenue = new Venue(),
 		private snakeConfig: ISnakeConfig = new SnakeConfig(),
 	) {
+		this._score = score;
 		this.init();
 	}
 
@@ -132,7 +134,6 @@ export default class Snake implements ISnake {
 		}
 
 		this.step = this.snakeConfig.defaultStep;
-		this._score = new Score();
 
 		this._head = this.venue.randomPosition();
 
