@@ -73,7 +73,7 @@ export default class Snake implements ISanke {
 		this.growNeck();
 		var newHead = this.getAhead();
 
-		const isRushOut = this.venue.isRushOut(this.head);
+		const isRushOut = this.venue.isRushOut(newHead);
 		if (isRushOut) {
 			switch (this.snakeConfig.gameMode) {
 				case GameModes.Obstacles:
