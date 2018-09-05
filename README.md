@@ -2,8 +2,17 @@
 
 记录项目演进过程
 
+## TODO:
+
+* 使用rx控制主流程
+* 使用nest作为后端框架
+* 使用angular+作为前段框架
+* 引入GraphQL
+
 ## Versions:
 
+* [V0.2.0: add snake2](versions/0.2.0.md)
+---
 * [V0.1.6: can use env settings](versions/0.1.6.md)
 * [V0.1.5: refact snake codes](versions/0.1.5.md)
 * [V0.1.4: add gulp tasks](versions/0.1.4.md)
