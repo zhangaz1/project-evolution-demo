@@ -10,10 +10,12 @@ import {
 } from './../interfaces/index.js';
 
 import {
-	Snake,
 	Venue,
 	Foods,
+	Snake,
+	SnakeConfig,
 } from './index.js';
+import { EngineConfig } from './engineConfig.js';
 
 export { Engine };
 export default class Engine implements IEngine {
@@ -26,13 +28,12 @@ export default class Engine implements IEngine {
 
 	private snake: ISnake;
 	private foods: IFoods<IFood>;
-	private engineConfig: IEngineConfig;
 
 
 	constructor(
 		private render: IRender,
 		venueConfig: IVenueConfig,
-		snakeConfig: ISnakeConfig
+		private engineConfig: IEngineConfig = new EngineConfig(),
 	) {
 		const venue = new Venue(venueConfig);
 		this.snake = new Snake(venue);
