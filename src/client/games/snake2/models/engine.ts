@@ -135,7 +135,9 @@ export default class Engine implements IEngine {
 		this.renderMovingSnake(snake.head, snake.neck, oldTail);
 	}
 
-	private destroy() { }
+	public destroy() {
+
+	}
 
 	private renderScore() {
 		this.render.renderScore(this.snake.score);

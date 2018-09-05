@@ -11,6 +11,7 @@ import {
 	Venue,
 	FoodsConfig,
 } from './index.js';
+import { IPosition } from '../types/index.js';
 
 export { Foods };
 export default class Foods implements IFoods<IFood> {
@@ -24,9 +25,35 @@ export default class Foods implements IFoods<IFood> {
 	}
 
 	public eat(position: IPoint): IFood {
-		return this.foods.find(
+		const foodIndex = this.findFoodIndex(position);
+		if (foodIndex === -1) {
+			return null;
+		}
+
+		const food = this.foods[foodIndex];
+		this.deleteFood(foodIndex);
+		this.initFoodIfEmpty();
+		return food;
+	}
+
+	private initFoodIfEmpty() {
+		if (this.isFoodsEmpty()) {
+			this.init();
+		}
+	}
+
+	private isFoodsEmpty() {
+		return this.foods.length === 0;
+	}
+
+	private findFoodIndex(position: IPosition) {
+		return this.foods.findIndex(
 			food => food.position.isEqual(position)
 		);
+	}
+
+	private deleteFood(index) {
+		this.foods.splice(index, 1);
 	}
 
 	private init() {

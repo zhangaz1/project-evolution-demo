@@ -18,3 +18,4 @@ export * from './iSnakeConfig.js';
 export * from './iVenue.js';
 export * from './iVenueConfig.js';
 export * from './iActionHandler.js';
+export * from './iDestroyable.js';

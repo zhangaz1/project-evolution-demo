@@ -1,7 +1,13 @@
-import { KeyCode } from './../types/index.js';
+import {
+	KeyCode,
+} from './../types/index.js';
+
+import {
+	IDestroyable,
+} from './index.js';
 
 export { IEngine };
-export default interface IEngine {
+export default interface IEngine extends IDestroyable {
 	open(): Promise<any>;
 	start(): Promise<any>;
 	pause(): Promise<any>;
