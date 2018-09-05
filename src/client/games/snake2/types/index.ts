@@ -1,4 +1,4 @@
-export * from './cell.js';
+export * from './iCell.js';
 export * from './keyCode.js';
-export * from './position.js';
-export * from './vector.js';
+export * from './iPosition.js';
+export * from './iVector.js';

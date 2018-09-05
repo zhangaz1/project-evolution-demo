@@ -3,7 +3,7 @@ import {
 } from './../utils/index.js';
 
 import {
-	Position,
+	IPosition,
 } from './../types/index.js';
 
 import {
@@ -30,21 +30,21 @@ export default class Venue implements IVenue {
 		private venueConfig: IVenueConfig = new VenueConfig()
 	) { }
 
-	public randomPosition(): Position {
+	public randomPosition(): IPosition {
 		return new Point(
 			randomInRange(0, this.columns),
 			randomInRange(0, this.rows),
 		);
 	}
 
-	public isRushOut(position: Position): boolean {
+	public isRushOut(position: IPosition): boolean {
 		return this.isRushOutLeft(position) ||
 			this.isRushOutTop(position) ||
 			this.isRushOutRight(position) ||
 			this.isRushOutBottom(position);
 	}
 
-	public fixRushOut(position: Position): void {
+	public fixRushOut(position: IPosition): void {
 		this.fixRushOutLeft(position) ||
 			this.fixRushOutTop(position) ||
 			this.fixRushOutRight(position) ||

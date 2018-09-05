@@ -3,7 +3,7 @@ import {
 } from './../enums/index.js';
 
 import {
-	Cell,
+	ICell,
 } from './../types/index.js';
 
 import {
@@ -24,7 +24,7 @@ import {
 
 class CellParamsObj {
 	constructor(
-		public cell: Cell,
+		public cell: ICell,
 		public fillColor: Colors = null,
 		public borderSize: number = null,
 		public borderColor: Colors = null,
@@ -70,7 +70,7 @@ export default class RenderCanvas implements IRender {
 		);
 	}
 
-	private renderBodyCell(bodyCell: Cell) {
+	private renderBodyCell(bodyCell: ICell) {
 		this.renderCell(
 			new CellParamsObj(
 				bodyCell,
@@ -83,18 +83,18 @@ export default class RenderCanvas implements IRender {
 		console.log(JSON.stringify(score, null, 4));
 	}
 
-	public renderSnakeHead(head: Cell): void {
+	public renderSnakeHead(head: ICell): void {
 		this.renderCell(new CellParamsObj(
 			head,
 			this.renderConfig.snakeHeadColor,
 		));
 	}
 
-	public renderSnakeNeck(neck: Cell): void {
+	public renderSnakeNeck(neck: ICell): void {
 		this.renderBodyCell(neck);
 	}
 
-	public revertSnakeTail(tail: Cell): void {
+	public revertSnakeTail(tail: ICell): void {
 		this.renderCell(new CellParamsObj(
 			tail,
 			this.renderConfig.groundColor,

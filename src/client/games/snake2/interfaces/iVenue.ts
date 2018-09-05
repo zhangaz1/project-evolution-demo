@@ -1,5 +1,5 @@
 import {
-	Position,
+	IPosition,
 } from './../types/index.js';
 
 export { IVenue };
@@ -7,8 +7,8 @@ export default interface IVenue {
 	readonly columns: number;
 	readonly rows: number;
 
-	randomPosition(): Position;
+	randomPosition(): IPosition;
 
-	isRushOut(position: Position): boolean;
-	fixRushOut(position: Position): void;
+	isRushOut(position: IPosition): boolean;
+	fixRushOut(position: IPosition): void;
 }

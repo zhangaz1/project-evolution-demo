@@ -3,7 +3,7 @@ import {
 } from './../enums/index.js';
 
 import {
-	Vector,
+	IVector,
 } from './../types/index.js';
 
 import {
@@ -18,7 +18,7 @@ export { SnakeConfig };
 export default class SnakeConfig implements ISnakeConfig {
 	constructor(
 		public defaultLength: number = 3,
-		public defaultStep: Vector = new Point(1, 0),
+		public defaultStep: IVector = new Point(1, 0),
 		public gameMode: GameModes = GameModes.NoWalls,
 	) { }
 }

@@ -1,5 +1,5 @@
 import {
-	Cell
+	ICell
 } from './../types/index.js';
 
 import {
@@ -16,7 +16,7 @@ export default interface IRender {
 	renderSnake(snake: ISnake): void;
 	renderScore(score: IScore): void;
 
-	renderSnakeHead(head: Cell): void;
-	renderSnakeNeck(neck: Cell): void;
-	revertSnakeTail(tail: Cell): void;
+	renderSnakeHead(head: ICell): void;
+	renderSnakeNeck(neck: ICell): void;
+	revertSnakeTail(tail: ICell): void;
 }

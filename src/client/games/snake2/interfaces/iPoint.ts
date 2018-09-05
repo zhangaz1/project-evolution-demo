@@ -1,5 +1,5 @@
 import {
-	Vector
+	IVector
 } from '../types/index.js';
 
 import {
@@ -9,7 +9,7 @@ import {
 export { IPoint };
 export default interface IPoint extends ICoordinate {
 	copy(): IPoint;
-	move(step: Vector): IPoint;
+	move(step: IVector): IPoint;
 
 	getOpposite(): IPoint;
 

@@ -1,8 +1,8 @@
 import {
-	Vector,
+	IVector,
 } from './../types/index.js';
 
 export { IDirectionVectorMap };
 export default interface IDirectionVectorMap {
-	[key: number]: Vector
+	[key: number]: IVector
 }

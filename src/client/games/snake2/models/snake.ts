@@ -4,7 +4,7 @@ import {
 } from './../enums/index.js';
 
 import {
-	Vector,
+	IVector,
 } from './../types/index.js';
 
 import {
@@ -37,7 +37,7 @@ export default class Snake implements ISnake {
 	private _head: IPoint;
 	private _score: IScore;
 	private _body: IPoint[];
-	private step: Vector;
+	private step: IVector;
 
 	constructor(
 		private venue: IVenue = new Venue(),

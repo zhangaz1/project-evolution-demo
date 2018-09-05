@@ -3,7 +3,7 @@ import {
 } from './../interfaces/index.js';
 
 import {
-	Vector,
+	IVector,
 } from './../types/index.js';
 
 export { Point };
@@ -17,7 +17,7 @@ export default class Point implements IPoint {
 		return Point.clone(this);
 	}
 
-	public move(step: Vector): IPoint {
+	public move(step: IVector): IPoint {
 		this.x += step.x;
 		this.y += step.y;
 
