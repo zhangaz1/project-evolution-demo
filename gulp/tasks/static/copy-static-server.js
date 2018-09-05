@@ -1,5 +1,7 @@
+const fileFullPath = __filename;
+
 gulp.task(
-	getTaskName(path.basename(__filename)),
+	getTaskName(fileFullPath),
 	() => {
 		return copyStatic(
 			config.files.serverStatics,

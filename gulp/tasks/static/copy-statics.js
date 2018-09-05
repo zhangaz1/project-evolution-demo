@@ -1,5 +1,7 @@
+const fileFullPath = __filename;
+
 gulp.task(
-	getTaskName(path.basename(__filename)),
+	getTaskName(fileFullPath),
 	plugins.sequence(
 		'copy-static-client',
 		// 'copy-static-server'
