@@ -1,2 +1,7 @@
-export type KeyCode = 37 | 38 | 39 | 40;
+export type KeyCode =
+	32 // blank space
+	| 37 // left
+	| 38 // up
+	| 39 // right
+	| 40; // down
 export default KeyCode;

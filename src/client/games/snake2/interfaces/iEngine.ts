@@ -1,3 +1,5 @@
+import { KeyCode } from './../types/index.js';
+
 export { IEngine };
 export default interface IEngine {
 	open(): Promise<any>;
@@ -6,4 +8,8 @@ export default interface IEngine {
 	continue(): Promise<any>;
 	stop(): Promise<any>;
 	close(): Promise<any>;
+
+	pauseToggle(): void;
+
+	inputKey(keyCode: KeyCode): void;
 }

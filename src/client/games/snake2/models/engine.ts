@@ -1,4 +1,8 @@
 import {
+	KeyCode,
+} from './../types/index.js';
+
+import {
 	IEngine,
 	IEngineConfig,
 	ISnake,
@@ -8,6 +12,7 @@ import {
 	IFoodsConfig,
 	IRender,
 	IVenueConfig,
+	IActionHandler,
 } from './../interfaces/index.js';
 
 import {
@@ -17,6 +22,7 @@ import {
 	Snake,
 	SnakeConfig,
 	EngineConfig,
+	ActionHandler,
 } from './index.js';
 
 export { Engine };
@@ -29,6 +35,7 @@ export default class Engine implements IEngine {
 
 	private snake: ISnake;
 	private foods: IFoods<IFood>;
+	private actionHandler: IActionHandler;
 
 	constructor(
 		private render: IRender,
@@ -40,6 +47,7 @@ export default class Engine implements IEngine {
 		const venue = new Venue(venueConfig);
 		this.snake = new Snake(venue, snakeConfig);
 		this.foods = new Foods(venue, foodsConfig);
+		this.actionHandler = new ActionHandler(this.snake, <IEngine>this);
 	}
 
 	public async open() {
@@ -78,14 +86,35 @@ export default class Engine implements IEngine {
 		this.destroy();
 	}
 
+	public pauseToggle(): void {
+		this.isPaused = !this.isPaused;
+		if (!this.isPaused) {
+			this.continue();
+		}
+	}
+
+	public inputKey(keyCode: KeyCode): void {
+		this.actionHandler.doAction(keyCode);
+	}
 
 	private run() {
-		if (this.isStoped || this.isPaused) {
-			return;
+		if (this.canRun()) {
+			this.move();
+			this.setNext();
 		}
+	}
 
-		this.move();
-		setTimeout(this.run.bind(this), this.engineConfig.interval);
+	private setNext() {
+		setTimeout(
+			this.run.bind(this),
+			this.engineConfig.interval
+		);
+	}
+
+	private canRun(): boolean {
+		return this.isStarted &&
+			!this.isPaused &&
+			!this.isStoped;
 	}
 
 	private move() {

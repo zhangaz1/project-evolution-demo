@@ -13,3 +13,4 @@ export * from './snake.js';
 export * from './snakeConfig.js';
 export * from './venue.js';
 export * from './venueConfig.js';
+export * from './actionHandler.js';
