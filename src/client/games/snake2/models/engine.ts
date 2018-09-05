@@ -1,6 +1,5 @@
 import IEngine from '../interfaces/iEngine.js';
 import Snake from './snake.js';
-import Venue from './venue.js';
 import Foods from './foods.js';
 import IRender from '../interfaces/iRender.js';
 import EngineConfig from './engineConfig.js';
@@ -14,7 +13,6 @@ export default class Engine implements IEngine {
 	private timer = 0;
 
 	constructor(
-		private venue: Venue,
 		private snake: Snake,
 		private foods: Foods,
 		private render: IRender,

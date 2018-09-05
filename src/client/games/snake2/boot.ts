@@ -15,7 +15,6 @@ export default function (
 	env: object = {},
 	container: HTMLDivElement = <HTMLDivElement>consts.gameGround.get(0),
 ): Promise<Game> {
-
 	const venue = new Venue();
 
 	var renderConfig = new RenderConfig();
@@ -25,7 +24,7 @@ export default function (
 	const snake = new Snake(venue);
 	const foods = new Foods(venue);
 
-	const game = new Engine(venue, snake, foods, renderCanvas);
+	const game = new Engine(snake, foods, renderCanvas);
 
 	$(container).append(canvas);
 	return Promise.resolve(game);
