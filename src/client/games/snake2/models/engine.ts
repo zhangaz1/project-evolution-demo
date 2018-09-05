@@ -114,7 +114,8 @@ export default class Engine implements IEngine {
 	private canRun(): boolean {
 		return this.isStarted &&
 			!this.isPaused &&
-			!this.isStoped;
+			!this.isStoped &&
+			!this.snake.isDied;
 	}
 
 	private move() {
@@ -124,6 +125,7 @@ export default class Engine implements IEngine {
 
 		if (this.snake.isDied) {
 			console.log('game over');
+			console.log('your score:', this.snake.score);
 			return;
 		}
 
