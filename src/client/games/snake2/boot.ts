@@ -2,6 +2,10 @@ import Game from './../../core/models/game.js';
 import consts from './../../configs/consts.js';
 
 import {
+	KeyCode,
+} from './types/index.js';
+
+import {
 	IEngine,
 } from './interfaces/index.js';
 
@@ -10,7 +14,10 @@ import {
 	RenderConfig,
 	RenderCanvas,
 	Engine,
+	EngineConfig,
+	SnakeConfig,
 } from './models/index.js';
+
 
 export default function (
 	env: object = {},
@@ -20,7 +27,7 @@ export default function (
 
 	document.onkeydown = (e: KeyboardEvent) => {
 		let keyCode = (e || <KeyboardEvent>event).keyCode;
-		game.inputKey(keyCode);
+		game.inputKey(<KeyCode>keyCode);
 	};
 
 	return Promise.resolve(game);
@@ -36,6 +43,8 @@ function generateGame(container): IEngine {
 	return new Engine(
 		render,
 		venueConfig,
+		new EngineConfig(),
+		new SnakeConfig(15),
 	);
 }
 
