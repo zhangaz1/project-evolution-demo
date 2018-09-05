@@ -1,11 +1,21 @@
-import IPoint from './iPoint.js';
-import IFoods from './iFoods.js';
-import IFood from './iFood.js';
-import IScore from './iScore.js';
-import Directions from '../enums/directions.js';
+import {
+	Directions
+} from './../enums/index.js';
 
+import {
+	IPoint,
+	IScore,
+	IFood,
+	IFoods,
+} from './index.js';
+
+export { ISnake };
 export default interface ISnake {
 	readonly head: IPoint;
+	readonly neck: IPoint;
+	readonly tail: IPoint;
+	readonly body: IPoint[];
+	readonly isDied: boolean;
 	readonly score: IScore;
 
 	turn(direction: Directions): void;

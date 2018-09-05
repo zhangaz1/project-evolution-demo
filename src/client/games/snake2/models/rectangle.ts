@@ -1,5 +1,10 @@
-import IRectangle from '../interfaces/iRectangle.js';
-import Colors from './../enums/colors.js';
+import {
+	IRectangle,
+} from './../interfaces/index.js';
+
+import {
+	Colors,
+} from './../enums/colors.js';
 
 export { Rectangle };
 export default class Rectangle implements IRectangle {

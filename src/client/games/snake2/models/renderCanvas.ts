@@ -1,14 +1,26 @@
-import IRender from '../interfaces/iRender.js';
+import {
+	Colors,
+} from './../enums/index.js';
 
-import Colors from './../enums/colors.js';
+import {
+	Cell,
+} from './../types/index.js';
 
-import Cell from './../types/cell.js';
+import {
+	IFood,
+	IFoods,
+	ISnake,
+	IScore,
+	IRectangle,
+	IRender,
+	IRenderConfig,
+} from './../interfaces/index.js';
 
-import Foods from './foods.js';
-import Snake from './snake.js';
-import Score from './score.js';
-import Rectangle from './rectangle.js';
-import RenderConfig from './renderConfig.js';
+import {
+	Snake,
+	Rectangle,
+} from './index.js';
+
 
 class CellParamsObj {
 	constructor(
@@ -25,7 +37,7 @@ export default class RenderCanvas implements IRender {
 
 	constructor(
 		private canvasElement: HTMLCanvasElement,
-		private renderConfig: RenderConfig,
+		private renderConfig: IRenderConfig,
 	) {
 		this.context = canvasElement.getContext('2d');
 	}
@@ -35,7 +47,7 @@ export default class RenderCanvas implements IRender {
 		this.drawRectangle(rectangle);
 	}
 
-	public renderFoods(foods: Foods): void {
+	public renderFoods(foods: IFoods<IFood>): void {
 		foods.foods.forEach(
 			this.renderFood.bind(this)
 		);
@@ -50,7 +62,7 @@ export default class RenderCanvas implements IRender {
 		)
 	}
 
-	public renderSnake(snake: Snake): void {
+	public renderSnake(snake: ISnake): void {
 		this.renderSnakeHead(snake.head);
 
 		snake.body.forEach(
@@ -67,7 +79,7 @@ export default class RenderCanvas implements IRender {
 		);
 	}
 
-	public renderScore(score: Score): void {
+	public renderScore(score: IScore): void {
 		console.log(JSON.stringify(score, null, 4));
 	}
 
@@ -111,7 +123,7 @@ export default class RenderCanvas implements IRender {
 		this.drawRectangle(rectangle);
 	}
 
-	private getCellRectangle(cellParamsObj: CellParamsObj): Rectangle {
+	private getCellRectangle(cellParamsObj: CellParamsObj): IRectangle {
 		const config = this.renderConfig;
 		const venueBorderSize = config.venueBorderSize;
 		const borderSize = cellParamsObj.borderSize !== null ? cellParamsObj.borderSize : config.cellBorderSize;
@@ -132,7 +144,7 @@ export default class RenderCanvas implements IRender {
 	}
 
 
-	private drawRectangle(rectangle: Rectangle) {
+	private drawRectangle(rectangle: IRectangle) {
 		const context = this.context;
 		context.beginPath();
 		context.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);

@@ -1,5 +1,6 @@
-import IPoint from '../interfaces/iPoint.js';
+import {
+	IPoint,
+} from './../interfaces/index.js';
 
-type Position = IPoint;
-
+export type Position = IPoint;
 export default Position;

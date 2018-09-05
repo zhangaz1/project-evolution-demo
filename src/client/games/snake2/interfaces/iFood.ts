@@ -1,7 +1,12 @@
-import Colors from '../enums/colors.js';
+import {
+	Colors
+} from './../enums/index.js';
 
-import IPoint from './iPoint.js';
+import {
+	IPoint
+} from './index.js';
 
+export { IFood };
 export default interface IFood {
 	position: IPoint;
 	color: Colors;

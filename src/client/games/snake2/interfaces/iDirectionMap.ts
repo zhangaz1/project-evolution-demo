@@ -1,7 +1,13 @@
-import KeyCode from '../types/keyCode.js';
-import Directions from '../enums/directions.js';
-import Vector from '../types/vector.js';
+import {
+	Directions
+} from './../enums/index.js';
 
+import {
+	KeyCode,
+	Vector,
+} from './../types/index.js';
+
+export { IDirectionMap };
 export default interface IDirectionMap {
 	keyCode: KeyCode,
 	direction: Directions,

@@ -1,4 +1,6 @@
-import IEngineConfig from '../interfaces/iEngineConfig.js';
+import {
+	IEngineConfig,
+} from './../interfaces/index.js';
 
 export { EngineConfig };
 export default class EngineConfig implements IEngineConfig {

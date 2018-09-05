@@ -1,4 +1,6 @@
-import ISize from '../interfaces/iSize.js';
+import {
+	ISize,
+} from './../interfaces/index.js';
 
 export { Size };
 export default class Size implements ISize {

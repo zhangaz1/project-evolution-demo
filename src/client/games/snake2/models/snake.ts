@@ -1,71 +1,86 @@
-import ISanke from '../interfaces/iSnake.js';
-import Vector from './../types/vector.js';
+import {
+	GameModes,
+	Directions,
+} from './../enums/index.js';
 
-import GameModes from './../enums/gameModes.js';
+import {
+	Vector,
+} from './../types/index.js';
+
+import {
+	directionVectorMap,
+} from './../constants/index.js';
+
+import {
+	IPoint,
+	IFood,
+	IFoods,
+	ISnake,
+	ISnakeConfig,
+	IVenue,
+	IScore,
+} from './../interfaces/index.js';
+
 import {
 	isDirectionOpposite
 } from './../utils/index.js';
 
-import Point from './point.js';
-import Foods from './foods.js';
-import Food from './food.js';
-import Venue from './venue.js';
-import Score from './score.js';
-import SnakeConfig from './snakeConfig.js';
-import Directions from './../enums/directions.js';
-
-import directionVectorMap from './../constants/directionVectorMap.js';
+import {
+	Venue,
+	Score,
+	SnakeConfig,
+} from './index.js';
 
 export { Snake };
-export default class Snake implements ISanke {
+export default class Snake implements ISnake {
 	private _isDied: boolean = false;
-	private _head: Point;
-	private _score: Score;
-	private _body: Point[];
+	private _head: IPoint;
+	private _score: IScore;
+	private _body: IPoint[];
 	private step: Vector;
 
 	constructor(
-		private venue: Venue = new Venue(),
-		private snakeConfig: SnakeConfig = new SnakeConfig(),
+		private venue: IVenue = new Venue(),
+		private snakeConfig: ISnakeConfig = new SnakeConfig(),
 	) {
 		this.init();
 	}
 
-	public get head() {
+	public get head(): IPoint {
 		return this._head.copy();
 	}
 
-	public get neck() {
+	public get neck(): IPoint {
 		return this._body[0]
 			.copy();
 	}
 
-	public get tail() {
+	public get tail(): IPoint {
 		const last = this._body.length - 1;
 		return this._body[last]
 			.copy();
 	}
 
-	public get body() {
+	public get body(): IPoint[] {
 		return [].concat(this._body); // copy
 	}
 
-	public get score() {
+	public get score(): IScore {
 		return this._score;
 	}
 
-	public get isDied() {
+	public get isDied(): boolean {
 		return this._isDied;
 	}
 
-	public turn(direction: Directions) {
+	public turn(direction: Directions): void {
 		const newStep = directionVectorMap[direction];
 		if (!this.step.isOpposite(newStep)) {
 			this.step = newStep;
 		}
 	}
 
-	public move(foods: Foods): Food {
+	public move(foods: IFoods<IFood>): IFood {
 		if (this._isDied) {
 			return;
 		}
@@ -112,7 +127,7 @@ export default class Snake implements ISanke {
 		this.initSnakeBody();
 	}
 
-	private initSnakeBody() {
+	private initSnakeBody(): void {
 		this._body = [];
 		const snakeLength = this.snakeConfig.defaultLength;
 		const tempStep = this.step.getOpposite();
@@ -124,7 +139,7 @@ export default class Snake implements ISanke {
 		}
 	}
 
-	private snakeBigThanVenue() {
+	private snakeBigThanVenue(): boolean {
 		const snakeConfig = this.snakeConfig;
 		const venue = this.venue;
 
@@ -132,7 +147,7 @@ export default class Snake implements ISanke {
 			snakeConfig.defaultLength > venue.rows;
 	}
 
-	private getAhead(): Point {
+	private getAhead(): IPoint {
 		return this._head
 			.copy()
 			.move(this.step);

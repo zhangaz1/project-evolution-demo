@@ -1,4 +1,4 @@
-const enum KeyCodes {
+export const enum KeyCodes {
 	Left = 37,
 	Up = 38,
 	Right = 39,

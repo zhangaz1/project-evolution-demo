@@ -1,5 +1,8 @@
-import Colors from '../enums/colors.js';
+import {
+	Colors
+} from './../enums/index.js';
 
+export { IRenderConfig };
 export default interface IRenderConfig {
 	readonly width: number;
 	readonly height: number;

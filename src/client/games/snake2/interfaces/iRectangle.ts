@@ -1,7 +1,13 @@
-import ICoordinate from './iCoordinate.js';
-import ISize from './iSize.js';
-import Colors from '../enums/colors.js';
+import {
+	Colors
+} from './../enums/index.js';
 
+import {
+	ICoordinate,
+	ISize
+} from './index.js';
+
+export { IRectangle };
 export default interface IRectangle extends ICoordinate, ISize {
 	borderSize: number;
 	borderColor: Colors;

@@ -1,5 +1,6 @@
-import IPoint from '../interfaces/iPoint.js';
+import {
+	IPoint,
+} from './../interfaces/index.js';
 
-type Vector = IPoint;
-
+export type Vector = IPoint;
 export default Vector;

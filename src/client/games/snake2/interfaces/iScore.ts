@@ -1,5 +1,8 @@
-import IFood from './iFood.js';
+import {
+	IFood
+} from './index.js';
 
+export { IScore };
 export default interface IScore {
 	score: number;
 	level: number;

@@ -1,5 +1,6 @@
-import IPoint from '../interfaces/iPoint.js';
+import {
+	IPoint,
+} from './../interfaces/index.js';
 
-type Cell = IPoint;
-
+export type Cell = IPoint;
 export default Cell;

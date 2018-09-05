@@ -1,9 +1,18 @@
-import Vector from './../types/vector.js';
+import {
+	GameModes,
+} from './../enums/index.js';
 
-import ISnakeConfig from '../interfaces/iSnakeConfig.js';
+import {
+	Vector,
+} from './../types/index.js';
 
-import GameModes from './../enums/gameModes.js';
-import Point from './point.js';
+import {
+	ISnakeConfig,
+} from './../interfaces/index.js';
+
+import {
+	Point,
+} from './index.js';
 
 export { SnakeConfig };
 export default class SnakeConfig implements ISnakeConfig {

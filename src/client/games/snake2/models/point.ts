@@ -1,5 +1,10 @@
-import IPoint from '../interfaces/iPoint.js';
-import Vector from '../types/vector.js';
+import {
+	IPoint,
+} from './../interfaces/index.js';
+
+import {
+	Vector,
+} from './../types/index.js';
 
 export { Point };
 export default class Point implements IPoint {
@@ -8,25 +13,25 @@ export default class Point implements IPoint {
 		public y: number = 0,
 	) { }
 
-	public copy(): Point {
+	public copy(): IPoint {
 		return Point.clone(this);
 	}
 
-	public move(step: Vector): Point {
+	public move(step: Vector): IPoint {
 		this.x += step.x;
 		this.y += step.y;
 
 		return this;
 	}
 
-	public getOpposite(): Point {
+	public getOpposite(): IPoint {
 		const point = this.copy();
 		point.x *= -1;
 		point.y *= -1;
 		return point;
 	}
 
-	public isEqual(anotherPoint: Point): boolean {
+	public isEqual(anotherPoint: IPoint): boolean {
 		return this.x === anotherPoint.x &&
 			this.y === anotherPoint.y;
 	}
@@ -35,7 +40,7 @@ export default class Point implements IPoint {
 		return this.isEqual(Point.basePoint);
 	}
 
-	public isOpposite(anotherPoint: Point): boolean {
+	public isOpposite(anotherPoint: IPoint): boolean {
 		return this.copy()
 			.move(anotherPoint)
 			.isBasePoint();
@@ -44,7 +49,7 @@ export default class Point implements IPoint {
 
 	public static basePoint = new Point();
 
-	public static clone(point: Point): Point {
+	public static clone(point: IPoint): IPoint {
 		return new Point(point.x, point.y);
 	}
 }

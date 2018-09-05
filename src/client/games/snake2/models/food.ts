@@ -1,13 +1,19 @@
-import IFood from '../interfaces/iFood.js';
+import {
+	Colors,
+} from './../enums/index.js';
 
-import Colors from './../enums/colors.js';
+import {
+	IFood,
+} from './../interfaces/index.js';
 
-import Point from './point.js';
+import {
+	Point,
+} from './index.js';
 
 export { Food };
 export default class Food implements IFood {
 	constructor(
-		public position = new Point(),
+		public position,
 		public color = Colors.Yellow,
 		public power: number = 1,
 	) { }

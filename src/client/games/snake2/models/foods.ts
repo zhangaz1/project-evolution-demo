@@ -1,29 +1,36 @@
-import IFoods from '../interfaces/iFoods.js';
+import {
+	IPoint,
+	IFood,
+	IFoods,
+	IFoodsConfig,
+	IVenue,
+} from './../interfaces/index.js';
 
-import Point from './point.js';
-import Food from './food.js';
-import Venue from './venue.js';
-import FoodsConfig from './foodsConfig.js';
+import {
+	Food,
+	Venue,
+	FoodsConfig,
+} from './index.js';
 
 export { Foods };
-export default class Foods implements IFoods<Food> {
-	readonly foods: Food[] = [];
+export default class Foods implements IFoods<IFood> {
+	readonly foods: IFood[] = [];
 
 	constructor(
-		private venue: Venue = new Venue(),
-		private foodsConfig: FoodsConfig = new FoodsConfig(),
+		private venue: IVenue = new Venue(),
+		private foodsConfig: IFoodsConfig = new FoodsConfig(),
 	) {
-		this.init(foodsConfig);
+		this.init();
 	}
 
-	public eat(position: Point): Food {
+	public eat(position: IPoint): IFood {
 		return this.foods.find(
 			food => food.position.isEqual(position)
 		);
 	}
 
-	private init(foodsConfig) {
-		for (let i = 0; i < foodsConfig.foods; i++) {
+	private init() {
+		for (let i = 0; i < this.foodsConfig.foods; i++) {
 			const position = this.venue.randomPosition();
 			this.foods.push(new Food(position));
 		}

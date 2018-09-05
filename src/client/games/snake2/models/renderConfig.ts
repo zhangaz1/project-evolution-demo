@@ -1,10 +1,21 @@
-import Colors from './../enums/colors.js';
-import IRenderConfig from '../interfaces/iRenderConfig.js';
-import VenueConfig from './venueConfig.js';
+import {
+	Colors,
+} from './../enums/index.js';
+
+import {
+	IVenueConfig,
+	IRenderConfig,
+} from './../interfaces/index.js';
+
+import {
+	VenueConfig,
+} from './index.js';
 
 export { RenderConfig };
 export default class RenderConfig implements IRenderConfig {
 	constructor(
+		private venueConfig: IVenueConfig = new VenueConfig(),
+
 		public venueBorderSize: number = 4,
 		public venueBorderColor: Colors = Colors.Black,
 
@@ -20,7 +31,6 @@ export default class RenderConfig implements IRenderConfig {
 		public snakeBodyColor: Colors = Colors.Green,
 
 		public foodColor: Colors = Colors.Blue,
-		private venueConfig: VenueConfig = new VenueConfig()
 	) { }
 
 	public get width() {

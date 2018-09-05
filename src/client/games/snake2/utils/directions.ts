@@ -1,4 +1,6 @@
-import Directions from './../enums/directions.js';
+import {
+	Directions
+} from './../enums/index.js';
 
 export function isDirectionOpposite(
 	directionA: Directions,

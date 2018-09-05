@@ -1,6 +1,7 @@
-import IScore from '../interfaces/iScore.js';
-
-import Food from './food.js';
+import {
+	IFood,
+	IScore,
+} from './../interfaces/index.js';
 
 export { Score };
 export default class Score implements IScore {
@@ -9,7 +10,7 @@ export default class Score implements IScore {
 		public level: number = 1,
 	) { }
 
-	public increase(food: Food): void {
+	public increase(food: IFood): void {
 		this.score += food.power * this.level;
 	}
 }

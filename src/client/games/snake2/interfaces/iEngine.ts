@@ -1,3 +1,4 @@
+export { IEngine };
 export default interface IEngine {
 	open(): Promise<any>;
 	start(): Promise<any>;
