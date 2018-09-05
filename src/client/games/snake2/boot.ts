@@ -1,6 +1,11 @@
 import Game from './../../core/models/game.js';
 import consts from './../../configs/consts.js';
 
+
+import {
+	GameModes,
+} from './enums/index.js';
+
 import {
 	KeyCode,
 } from './types/index.js';
@@ -10,6 +15,7 @@ import {
 } from './interfaces/index.js';
 
 import {
+	Point,
 	VenueConfig,
 	RenderConfig,
 	RenderCanvas,
@@ -39,12 +45,17 @@ function generateGame(container): IEngine {
 	const canvas = createCanvas(renderConfig);
 	$(container).append(canvas);
 	const render = new RenderCanvas(canvas, renderConfig);
+	const snakeConfig = new SnakeConfig(
+		15,
+		new Point(1, 0),
+		GameModes.Classic
+	);
 
 	return new Engine(
 		render,
 		venueConfig,
 		new EngineConfig(),
-		new SnakeConfig(15),
+		snakeConfig,
 	);
 }
 
