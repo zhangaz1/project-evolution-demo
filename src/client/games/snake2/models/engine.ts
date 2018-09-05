@@ -5,6 +5,7 @@ import {
 	ISnakeConfig,
 	IFood,
 	IFoods,
+	IFoodsConfig,
 	IRender,
 	IVenueConfig,
 } from './../interfaces/index.js';
@@ -12,10 +13,11 @@ import {
 import {
 	Venue,
 	Foods,
+	FoodsConfig,
 	Snake,
 	SnakeConfig,
+	EngineConfig,
 } from './index.js';
-import { EngineConfig } from './engineConfig.js';
 
 export { Engine };
 export default class Engine implements IEngine {
@@ -25,19 +27,19 @@ export default class Engine implements IEngine {
 
 	private timer = 0;
 
-
 	private snake: ISnake;
 	private foods: IFoods<IFood>;
-
 
 	constructor(
 		private render: IRender,
 		venueConfig: IVenueConfig,
 		private engineConfig: IEngineConfig = new EngineConfig(),
+		snakeConfig: ISnakeConfig = new SnakeConfig(),
+		foodsConfig: IFoodsConfig = new FoodsConfig(),
 	) {
 		const venue = new Venue(venueConfig);
-		this.snake = new Snake(venue);
-		this.foods = new Foods(venue);
+		this.snake = new Snake(venue, snakeConfig);
+		this.foods = new Foods(venue, foodsConfig);
 	}
 
 	public async open() {
