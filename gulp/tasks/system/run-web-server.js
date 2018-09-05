@@ -1,5 +1,7 @@
+const fileFullPath = __filename;
+
 gulp.task(
-	getTaskName(path.basename(__filename)),
+	getTaskName(fileFullPath),
 	cb => {
 		const shell = exec('nodemon', ['-harmony']);
 		shell.stdout.pipe(process.stdout);

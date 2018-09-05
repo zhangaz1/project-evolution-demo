@@ -7,7 +7,7 @@ boot();
 // return void (0);
 
 function boot() {
-	$('#snake').click(loadGameHander);
+	$('.games-list > button').click(loadGameHander);
 
 	$('#start').click(startHandler);
 	$('#pause').click(pauseHandler);

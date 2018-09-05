@@ -1,0 +1,5 @@
+export { IVenueConfig };
+export default interface IVenueConfig {
+	columns: number;
+	rows: number;
+}
