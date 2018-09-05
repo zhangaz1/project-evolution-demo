@@ -48,7 +48,7 @@ function generateGame(container): IEngine {
 	const snakeConfig = new SnakeConfig(
 		15,
 		new Point(1, 0),
-		GameModes.Classic
+		GameModes.NoWalls,
 	);
 
 	return new Engine(

@@ -3,6 +3,7 @@ import {
 } from './../types/index.js';
 
 import {
+	IScore,
 	IEngine,
 	IEngineConfig,
 	ISnake,
@@ -34,6 +35,7 @@ export default class Engine implements IEngine {
 
 	private timer = 0;
 
+	private score: IScore;
 	private snake: ISnake;
 	private foods: IFoods<IFood>;
 	private actionHandler: IActionHandler;
@@ -46,9 +48,9 @@ export default class Engine implements IEngine {
 		foodsConfig: IFoodsConfig = new FoodsConfig(),
 	) {
 		const venue = new Venue(venueConfig);
-		const score = new Score();
-		this.snake = new Snake(score, venue, snakeConfig);
-		this.foods = new Foods(score, venue, foodsConfig);
+		this.score = new Score();
+		this.snake = new Snake(this.score, venue, snakeConfig);
+		this.foods = new Foods(this.score, venue, foodsConfig);
 		this.actionHandler = new ActionHandler(this.snake, <IEngine>this);
 	}
 
@@ -109,8 +111,12 @@ export default class Engine implements IEngine {
 	private setNext() {
 		setTimeout(
 			this.run.bind(this),
-			this.engineConfig.interval
+			this.engineConfig.interval * this.levelCoefficient()
 		);
+	}
+
+	private levelCoefficient() {
+		return 1 / Math.pow(this.score.level, Math.log(Math.E));
 	}
 
 	private canRun(): boolean {
