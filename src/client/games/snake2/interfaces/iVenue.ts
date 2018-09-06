@@ -9,6 +9,5 @@ export default interface IVenue {
 
 	randomPosition(): IPosition;
 
-	isRushOut(position: IPosition): boolean;
-	fixRushOut(position: IPosition): void;
+	ensurePosition(position: IPosition): IPosition;
 }

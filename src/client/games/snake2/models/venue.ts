@@ -3,6 +3,10 @@ import {
 } from './../utils/index.js';
 
 import {
+	GameModes,
+} from './../enums/index.js';
+
+import {
 	IPosition,
 } from './../types/index.js';
 
@@ -37,14 +41,31 @@ export default class Venue implements IVenue {
 		);
 	}
 
-	public isRushOut(position: IPosition): boolean {
+	public ensurePosition(position: IPosition): IPosition {
+		const isRushOut = this.isRushOut(position);
+		if (isRushOut) {
+			switch (this.venueConfig.gameMode) {
+				case GameModes.Obstacles:
+				case GameModes.Classic:
+					return null;
+				case GameModes.NoWalls:
+					this.fixRushOut(position)
+					return position;
+				default:
+					return null;
+			}
+		}
+		return position;
+	}
+
+	private isRushOut(position: IPosition): boolean {
 		return this.isRushOutLeft(position) ||
 			this.isRushOutTop(position) ||
 			this.isRushOutRight(position) ||
 			this.isRushOutBottom(position);
 	}
 
-	public fixRushOut(position: IPosition): void {
+	private fixRushOut(position: IPosition): void {
 		this.fixRushOutLeft(position) ||
 			this.fixRushOutTop(position) ||
 			this.fixRushOutRight(position) ||

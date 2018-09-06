@@ -40,21 +40,24 @@ export default function (
 }
 
 function generateGame(container): IEngine {
-	const venueConfig = new VenueConfig();
+	const venueConfig = new VenueConfig(
+		5,
+		6,
+		GameModes.NoWalls,
+	);
 	const renderConfig = new RenderConfig(venueConfig);
 	const canvas = createCanvas(renderConfig);
 	$(container).append(canvas);
 	const render = new RenderCanvas(canvas, renderConfig);
 	const snakeConfig = new SnakeConfig(
-		15,
+		4,
 		new Point(1, 0),
-		GameModes.NoWalls,
 	);
 
 	return new Engine(
 		render,
 		venueConfig,
-		new EngineConfig(),
+		new EngineConfig(150),
 		snakeConfig,
 	);
 }
