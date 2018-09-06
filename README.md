@@ -8,6 +8,9 @@
 * 使用nest作为后端框架
 * 使用angular+作为前段框架
 * 引入GraphQL
+* destroy机制
+* 在线
+* 多人
 
 ## Versions:
 
