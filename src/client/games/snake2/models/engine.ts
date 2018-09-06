@@ -12,6 +12,7 @@ import {
 	IFoods,
 	IFoodsConfig,
 	IRender,
+	IVenue,
 	IVenueConfig,
 	IActionHandler,
 } from './../interfaces/index.js';
@@ -29,6 +30,7 @@ import {
 
 export { Engine };
 export default class Engine implements IEngine {
+	private readonly venue: IVenue;
 	private isPaused: boolean;
 	private isStoped: boolean;
 	private isStarted: boolean;
@@ -47,15 +49,16 @@ export default class Engine implements IEngine {
 		snakeConfig: ISnakeConfig = new SnakeConfig(),
 		foodsConfig: IFoodsConfig = new FoodsConfig(),
 	) {
-		const venue = new Venue(venueConfig);
+		this.venue = new Venue(venueConfig);
 		this.score = new Score();
-		this.snake = new Snake(this.score, venue, snakeConfig);
-		this.foods = new Foods(this.score, venue, foodsConfig);
+		this.snake = new Snake(this.score, this.venue, snakeConfig);
+		this.foods = new Foods(this.score, this.venue, foodsConfig);
 		this.actionHandler = new ActionHandler(this.snake, <IEngine>this);
 	}
 
 	public async open() {
 		this.renderVenue();
+		this.renderObstacles();
 		this.renderFoods();
 		this.renderSnake();
 		this.renderScore();
@@ -163,6 +166,10 @@ export default class Engine implements IEngine {
 
 	private renderVenue() {
 		this.render.renderVenue();
+	}
+
+	private renderObstacles() {
+		this.render.renderObstacles(this.venue.obstacles);
 	}
 
 	private renderMovingSnake(head, neck, tail) {

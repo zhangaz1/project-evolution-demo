@@ -4,6 +4,7 @@ import {
 
 import {
 	ICell,
+	IObstacle,
 } from './../types/index.js';
 
 import {
@@ -17,7 +18,6 @@ import {
 } from './../interfaces/index.js';
 
 import {
-	Snake,
 	Rectangle,
 } from './index.js';
 
@@ -55,11 +55,9 @@ export default class RenderCanvas implements IRender {
 
 	private renderFood(food) {
 		this.renderCell(
-			new CellParamsObj(
-				food.position,
-				food.color,
-			)
-		)
+			food.position,
+			food.color,
+		);
 	}
 
 	public renderSnake(snake: ISnake): void {
@@ -72,10 +70,8 @@ export default class RenderCanvas implements IRender {
 
 	private renderBodyCell(bodyCell: ICell) {
 		this.renderCell(
-			new CellParamsObj(
-				bodyCell,
-				this.renderConfig.snakeBodyColor,
-			)
+			bodyCell,
+			this.renderConfig.snakeBodyColor,
 		);
 	}
 
@@ -83,11 +79,20 @@ export default class RenderCanvas implements IRender {
 		console.log(JSON.stringify(score, null, 4));
 	}
 
+	public renderObstacles(obstacles: IObstacle[]): void {
+		obstacles.forEach(
+			obstacle => this.renderCell(
+				obstacle,
+				this.renderConfig.obstacleColor,
+			)
+		);
+	}
+
 	public renderSnakeHead(head: ICell): void {
-		this.renderCell(new CellParamsObj(
+		this.renderCell(
 			head,
 			this.renderConfig.snakeHeadColor,
-		));
+		);
 	}
 
 	public renderSnakeNeck(neck: ICell): void {
@@ -95,11 +100,11 @@ export default class RenderCanvas implements IRender {
 	}
 
 	public revertSnakeTail(tail: ICell): void {
-		this.renderCell(new CellParamsObj(
+		this.renderCell(
 			tail,
 			this.renderConfig.groundColor,
 			0,
-		));
+		);
 	}
 
 
@@ -118,7 +123,15 @@ export default class RenderCanvas implements IRender {
 		});
 	}
 
-	private renderCell(cellParamsObj: CellParamsObj): void {
+	private renderCell(cell: ICell, color: Colors, borderSize?: number): void {
+		this.renderCellByParamsObj(new CellParamsObj(
+			cell,
+			color,
+			borderSize,
+		));
+	}
+
+	private renderCellByParamsObj(cellParamsObj: CellParamsObj): void {
 		const rectangle = this.getCellRectangle(cellParamsObj);
 		this.drawRectangle(rectangle);
 	}

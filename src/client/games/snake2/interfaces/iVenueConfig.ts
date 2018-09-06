@@ -7,4 +7,5 @@ export default interface IVenueConfig {
 	columns: number;
 	rows: number;
 	gameMode: GameModes;
+	obstacles: number;
 }

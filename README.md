@@ -11,6 +11,9 @@
 * destroy机制
 * 在线
 * 多人
+* canvas构建移入内部
+* sanke增加状态操作接口
+* 实现障碍模式
 
 ## Versions:
 

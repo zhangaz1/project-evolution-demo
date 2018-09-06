@@ -43,7 +43,7 @@ function generateGame(container): IEngine {
 	const venueConfig = new VenueConfig(
 		5,
 		6,
-		GameModes.NoWalls,
+		GameModes.Obstacles,
 	);
 	const renderConfig = new RenderConfig(venueConfig);
 	const canvas = createCanvas(renderConfig);

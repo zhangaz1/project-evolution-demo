@@ -7,7 +7,7 @@ import {
 } from './../enums/index.js';
 
 import {
-	IPosition,
+	IPosition, IObstacle, ICell,
 } from './../types/index.js';
 
 import {
@@ -22,6 +22,8 @@ import {
 
 export { Venue };
 export default class Venue implements IVenue {
+	private readonly _obstacles: IObstacle[] = [];
+
 	public get columns(): number {
 		return this.venueConfig.columns;
 	}
@@ -30,9 +32,23 @@ export default class Venue implements IVenue {
 		return this.venueConfig.rows;
 	}
 
+	public get obstacles(): IObstacle[] {
+		return [].concat(this._obstacles); // copy
+	}
+
 	constructor(
 		private venueConfig: IVenueConfig = new VenueConfig()
-	) { }
+	) {
+		if (this.venueConfig.gameMode === GameModes.Obstacles) {
+			this.initObstacles(this.venueConfig.obstacles);
+		}
+	}
+
+	private initObstacles(obstacles: number) {
+		for (let i = 0; i < obstacles; i++) {
+			this._obstacles.push(this.randomPosition()); // 避免重复？
+		}
+	}
 
 	public randomPosition(): IPosition {
 		return new Point(
@@ -45,17 +61,36 @@ export default class Venue implements IVenue {
 		const isRushOut = this.isRushOut(position);
 		if (isRushOut) {
 			switch (this.venueConfig.gameMode) {
-				case GameModes.Obstacles:
 				case GameModes.Classic:
 					return null;
+
+				case GameModes.Obstacles:
 				case GameModes.NoWalls:
 					this.fixRushOut(position)
 					return position;
+
 				default:
 					return null;
 			}
 		}
+
+		if (this.venueConfig.gameMode === GameModes.Obstacles) {
+			if (this.isObstacle(position)) {
+				return null;
+			}
+		}
+
 		return position;
+	}
+
+	private isObstacle(cell: ICell) {
+		return !!this.findObstacle(cell);
+	}
+
+	private findObstacle(position: IPosition): IObstacle {
+		return this._obstacles.find(
+			obstacle => obstacle.isEqual(position)
+		);
 	}
 
 	private isRushOut(position: IPosition): boolean {

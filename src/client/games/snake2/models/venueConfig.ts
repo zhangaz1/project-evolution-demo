@@ -12,5 +12,6 @@ export default class VenueConfig implements IVenueConfig {
 		public columns: number = 20,
 		public rows: number = 30,
 		public gameMode: GameModes = GameModes.NoWalls,
+		public obstacles: number = 5,
 	) { }
 }
