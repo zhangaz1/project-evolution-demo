@@ -1,5 +1,6 @@
 import {
 	IPoint,
+	IScore,
 	IFood,
 	IFoods,
 	IFoodsConfig,
@@ -18,6 +19,7 @@ export default class Foods implements IFoods<IFood> {
 	readonly foods: IFood[] = [];
 
 	constructor(
+		private score: IScore,
 		private venue: IVenue = new Venue(),
 		private foodsConfig: IFoodsConfig = new FoodsConfig(),
 	) {
@@ -38,6 +40,7 @@ export default class Foods implements IFoods<IFood> {
 
 	private initFoodIfEmpty() {
 		if (this.isFoodsEmpty()) {
+			this.score.increaseLevel();
 			this.init();
 		}
 	}

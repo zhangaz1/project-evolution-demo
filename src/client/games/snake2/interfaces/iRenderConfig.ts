@@ -25,4 +25,5 @@ export default interface IRenderConfig {
 	snakeBodyColor: Colors;
 
 	foodColor: Colors;
+	obstacleColor: Colors;
 }

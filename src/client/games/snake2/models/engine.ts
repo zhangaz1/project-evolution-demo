@@ -3,6 +3,7 @@ import {
 } from './../types/index.js';
 
 import {
+	IScore,
 	IEngine,
 	IEngineConfig,
 	ISnake,
@@ -11,12 +12,14 @@ import {
 	IFoods,
 	IFoodsConfig,
 	IRender,
+	IVenue,
 	IVenueConfig,
 	IActionHandler,
 } from './../interfaces/index.js';
 
 import {
 	Venue,
+	Score,
 	Foods,
 	FoodsConfig,
 	Snake,
@@ -27,12 +30,14 @@ import {
 
 export { Engine };
 export default class Engine implements IEngine {
+	private readonly venue: IVenue;
 	private isPaused: boolean;
 	private isStoped: boolean;
 	private isStarted: boolean;
 
 	private timer = 0;
 
+	private score: IScore;
 	private snake: ISnake;
 	private foods: IFoods<IFood>;
 	private actionHandler: IActionHandler;
@@ -44,14 +49,16 @@ export default class Engine implements IEngine {
 		snakeConfig: ISnakeConfig = new SnakeConfig(),
 		foodsConfig: IFoodsConfig = new FoodsConfig(),
 	) {
-		const venue = new Venue(venueConfig);
-		this.snake = new Snake(venue, snakeConfig);
-		this.foods = new Foods(venue, foodsConfig);
+		this.venue = new Venue(venueConfig);
+		this.score = new Score();
+		this.snake = new Snake(this.score, this.venue, snakeConfig);
+		this.foods = new Foods(this.score, this.venue, foodsConfig);
 		this.actionHandler = new ActionHandler(this.snake, <IEngine>this);
 	}
 
 	public async open() {
 		this.renderVenue();
+		this.renderObstacles();
 		this.renderFoods();
 		this.renderSnake();
 		this.renderScore();
@@ -107,14 +114,19 @@ export default class Engine implements IEngine {
 	private setNext() {
 		setTimeout(
 			this.run.bind(this),
-			this.engineConfig.interval
+			this.engineConfig.interval * this.levelCoefficient()
 		);
+	}
+
+	private levelCoefficient() {
+		return 1 / Math.pow(this.score.level, Math.log(Math.E));
 	}
 
 	private canRun(): boolean {
 		return this.isStarted &&
 			!this.isPaused &&
-			!this.isStoped;
+			!this.isStoped &&
+			!this.snake.isDied;
 	}
 
 	private move() {
@@ -124,11 +136,12 @@ export default class Engine implements IEngine {
 
 		if (this.snake.isDied) {
 			console.log('game over');
+			console.log('your score:', this.snake.score);
 			return;
 		}
 
 		if (food) {
-			snake.score.increase(food);
+			snake.score.increaseScore(food);
 			this.renderFoods();
 			this.renderScore();
 		}
@@ -153,6 +166,10 @@ export default class Engine implements IEngine {
 
 	private renderVenue() {
 		this.render.renderVenue();
+	}
+
+	private renderObstacles() {
+		this.render.renderObstacles(this.venue.obstacles);
 	}
 
 	private renderMovingSnake(head, neck, tail) {

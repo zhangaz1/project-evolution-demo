@@ -4,8 +4,9 @@ import {
 
 export { IScore };
 export default interface IScore {
-	score: number;
-	level: number;
+	readonly score: number;
+	readonly level: number;
 
-	increase(food: IFood): void;
+	increaseScore(food: IFood): void;
+	increaseLevel(): void;
 }

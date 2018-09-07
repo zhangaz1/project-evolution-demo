@@ -40,9 +40,11 @@ export default class Snake implements ISnake {
 	private step: IVector;
 
 	constructor(
+		score: IScore,
 		private venue: IVenue = new Venue(),
 		private snakeConfig: ISnakeConfig = new SnakeConfig(),
 	) {
+		this._score = score;
 		this.init();
 	}
 
@@ -87,20 +89,13 @@ export default class Snake implements ISnake {
 
 		this.growNeck();
 		var newHead = this.getAhead();
+		newHead = this.venue.ensurePosition(newHead);
 
-		const isRushOut = this.venue.isRushOut(newHead);
-		if (isRushOut) {
-			switch (this.snakeConfig.gameMode) {
-				case GameModes.Obstacles:
-				case GameModes.Classic:
-					this._isDied = true;
-					return;
-				case GameModes.NoWalls:
-					this.venue.fixRushOut(newHead)
-					break;
-				default:
-					break;
-			}
+		const isDied = !newHead || this.isCollideSelf(newHead);
+
+		if (isDied) {
+			this.died();
+			return null;
 		}
 
 		this.moveHead(newHead);
@@ -113,6 +108,15 @@ export default class Snake implements ISnake {
 		return food;
 	}
 
+	private died(): void {
+		this._isDied = true;
+	}
+
+	private isCollideSelf(newHead: IPoint): boolean {
+		return !!this._body.find(
+			cell => cell.isEqual(newHead)
+		);
+	}
 
 	private init(): void {
 		if (this.snakeBigThanVenue()) {
@@ -120,7 +124,6 @@ export default class Snake implements ISnake {
 		}
 
 		this.step = this.snakeConfig.defaultStep;
-		this._score = new Score();
 
 		this._head = this.venue.randomPosition();
 

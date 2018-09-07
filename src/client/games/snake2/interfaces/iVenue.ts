@@ -1,14 +1,15 @@
 import {
 	IPosition,
+	IObstacle,
 } from './../types/index.js';
 
 export { IVenue };
 export default interface IVenue {
 	readonly columns: number;
 	readonly rows: number;
+	readonly obstacles: IPosition[];
 
-	randomPosition(): IPosition;
+	randomPosition(): IObstacle;
 
-	isRushOut(position: IPosition): boolean;
-	fixRushOut(position: IPosition): void;
+	ensurePosition(position: IPosition): IPosition;
 }

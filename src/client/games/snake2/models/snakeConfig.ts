@@ -19,6 +19,5 @@ export default class SnakeConfig implements ISnakeConfig {
 	constructor(
 		public defaultLength: number = 3,
 		public defaultStep: IVector = new Point(1, 0),
-		public gameMode: GameModes = GameModes.NoWalls,
 	) { }
 }
