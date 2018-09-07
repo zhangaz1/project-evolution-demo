@@ -18,6 +18,7 @@
 
 ## Versions:
 
+* [V0.2.1: 实现Obstacles模式](versions/0.2.1.md)
 * [V0.2.0: add snake2](versions/0.2.0.md)
 ---
 * [V0.1.6: can use env settings](versions/0.1.6.md)
