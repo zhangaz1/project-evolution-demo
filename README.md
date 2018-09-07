@@ -9,6 +9,7 @@
 * 使用angular+作为前段框架
 * 引入GraphQL
 * destroy机制
+* 引入socketio
 * 在线
 * 多人
 * canvas构建移入内部
