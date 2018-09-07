@@ -31,6 +31,7 @@ export default class RenderConfig implements IRenderConfig {
 		public snakeBodyColor: Colors = Colors.Green,
 
 		public foodColor: Colors = Colors.Blue,
+		public obstacleColor: Colors = Colors.Black,
 	) { }
 
 	public get width() {
